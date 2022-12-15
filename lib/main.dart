@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mailing_system/AppViews/inboxPage.dart';
-
-void main() {
-  runApp(const MyApp());
-}
+// import 'package:mailing_system/AppViews/inboxPage.dart';
+import 'package:mailing_system/AppViews/sendmessage_screen.dart';
+void main()=>(runApp(const MyApp()));
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -11,17 +9,13 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-
-    
     return MaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
-      
       theme: ThemeData(
-       
         primarySwatch: Colors.blue,
       ),
-      home: inboxPage(),
+      home:  SendMessage(),
     );
   }
 }
