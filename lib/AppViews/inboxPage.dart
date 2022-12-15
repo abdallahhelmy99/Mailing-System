@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:badges/badges.dart';
+import 'package:anim_search_bar/anim_search_bar.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
 class inboxPage extends StatefulWidget {
@@ -16,6 +17,7 @@ class inboxPage extends StatefulWidget {
 
 class _inboxPageState extends State<inboxPage> {
   var size, height, width;
+  TextEditingController text = new TextEditingController();
 
   var selectedfolder = 'Inbox';
 
@@ -40,17 +42,33 @@ class _inboxPageState extends State<inboxPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          SizedBox(height: height / 64),
+          SizedBox(height: height / 32),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              SizedBox(width: width / 13),
+              SizedBox(width: width / 16),
               CircleAvatar(backgroundImage: NetworkImage('https://lh3.googleusercontent.com/a/AEdFTp7HB1ZjlorTV0wExaxhYEFjVlpn5ODkxRXx6aSHnw=s288-p-rw-no'),radius: 26, backgroundColor: Color.fromARGB(255,239,239,239), child: IconButton(icon: Icon(color: Colors.transparent, Icons.person), onPressed: (){},)),
               SizedBox(
                 width: width/2,
               ),
-             IconButton(onPressed: (){}, icon: Icon(Icons.search, color: Colors.black, size: 30,), splashRadius: 25),
-              Badge(position: BadgePosition.topEnd(top: 10, end: 10),badgeContent: Icon(Icons.circle ,color: Color.fromARGB(255,212,64,64), size: 2,),child: IconButton(onPressed: (){}, icon: Icon(Icons.settings, color: Colors.black, size: 30,), splashRadius: 25)),
+              SizedBox(
+                width: width/8,
+              ),
+              SizedBox(
+                width: width/32,
+              ),
+             IconButton(
+              onPressed: (){}, 
+              icon: Icon(
+                Icons.search, 
+                color: Colors.black, 
+                size: 30,
+                ), 
+              splashRadius: 25
+              
+             ),  
+            
+            
             ],
           ),
           SizedBox(
