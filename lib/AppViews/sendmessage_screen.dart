@@ -1,11 +1,9 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:mailing_system/SharedMaterial/shared_styles.dart';
 import 'package:file_picker/file_picker.dart';
 
 class SendMessage extends StatefulWidget {
   const SendMessage({super.key});
-
   @override
   State<SendMessage> createState() => _SendMessageState();
 }
