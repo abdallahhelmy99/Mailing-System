@@ -29,6 +29,7 @@ class _inboxPageState extends State<inboxPage> {
 
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 239, 239, 239),
+      //el app bar hena lazmeto en el status bar yb2a nafs loon el theme
       appBar: AppBar(
         systemOverlayStyle: SystemUiOverlayStyle(
             statusBarColor: Colors.transparent,
@@ -43,6 +44,7 @@ class _inboxPageState extends State<inboxPage> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           SizedBox(height: height / 32),
+          //Row fe profile w zorar lesa hanshof hy3ml eh
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -60,21 +62,20 @@ class _inboxPageState extends State<inboxPage> {
              IconButton(
               onPressed: (){}, 
               icon: Icon(
-                Icons.search, 
+                Icons.edit, 
                 color: Colors.black, 
-                size: 30,
+                size: 25,
                 ), 
               splashRadius: 25
-              
              ),  
-            
-            
             ],
           ),
           SizedBox(
             height: height / 128,
           ),
+          //Kelmet Inbox emfrood tetghyr 3la hasab el folder
           Container(alignment: Alignment.center,child: Text("Inbox", textAlign: TextAlign.center, style: TextStyle(fontSize: 45, fontWeight: FontWeight.bold),)),
+          //Unread Messages Counter
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -85,6 +86,7 @@ class _inboxPageState extends State<inboxPage> {
            SizedBox(
             height: height / 32,
           ),
+          //El Icons bta3t El folders
           Padding(
             padding: EdgeInsets.only(left: width/6),
             child: Row( children: [
@@ -95,32 +97,37 @@ class _inboxPageState extends State<inboxPage> {
               CircleAvatar(backgroundColor: Colors.white,radius: 30,child: IconButton(icon: Icon(Icons.folder_delete, color: Colors.black), onPressed: (){}, iconSize: 40,)),
               SizedBox(width: width/64,),
               CircleAvatar(backgroundColor: Colors.white,radius: 30,child: IconButton(icon: Icon(Icons.folder_special, color: Colors.black), onPressed: (){}, iconSize: 40,)),
-              //SizedBox(width: width/64,),
-              //CircleAvatar(backgroundColor: Colors.white,radius: 30,child: IconButton(icon: Icon(Icons.settings, color: Colors.black), onPressed: (){}, iconSize: 40,)),
             ],),
           ),
-          SizedBox(height: height/32,),
-          //hena el item builder
+          SizedBox(height: height/64,),
+          //Container Shayel El AnimSeaerchBar
           Container(
-            height: 1,
+            padding: EdgeInsets.only(left: width/32, bottom: height/24),
+            decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(topLeft: Radius.circular(30), topRight: Radius.circular(30)),              
+              ),
+            height: 90,
             width: width,
-            decoration: const BoxDecoration(
-              border: Border(
-                left: BorderSide(
-                  color: Colors.white,
-                  width: 1,
-                ),
-                right: BorderSide(
-                  color: Colors.white,
-                  width: 1,
+            child: Stack(
+              children: [
+                Padding(
+                padding: EdgeInsets.only(top: height/64, right: width/32, left: width/128),
+                child: AnimSearchBar(
+                  color: Colors.grey[350],
+                  width: width-30,
+                  textController: text,
+                  onSuffixTap: (){},
                 ),
               ),
-            ),
+              ], 
+            )
           ),
+          //Cards El Emails Hena
           Expanded(
             child: ListView.builder(
               itemCount: 10,
-              physics: BouncingScrollPhysics(),
+              physics: PageScrollPhysics(),
               itemBuilder: (context, index) {
                 return Stack(
                 children: [
@@ -128,8 +135,6 @@ class _inboxPageState extends State<inboxPage> {
                     padding: EdgeInsets.only(left: width/32, bottom: height/24),
                     decoration: BoxDecoration(
                       color: Colors.white,
-                      //borderRadius: BorderRadius.only(topLeft: Radius.circular(30), topRight: Radius.circular(30)),
-          
                     ),
                     height: height/6,
                     width: width,
@@ -159,11 +164,7 @@ class _inboxPageState extends State<inboxPage> {
                 );
             },),
           ),
-          
-          
           ])
-
     );
   }
 }
-
