@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
-
-import '../SharedMaterial/shared_colors.dart';
+import 'package:mailing_system/SharedMaterial/shared_widgets.dart';
 import '../SharedMaterial/shared_styles.dart';
 
 class EditProfileScreen extends StatefulWidget {
@@ -12,24 +11,18 @@ class EditProfileScreen extends StatefulWidget {
 }
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
+  SharedWidgets appBarObj=SharedWidgets();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          iconTheme: const IconThemeData(color: Colors.black),
-          actionsIconTheme: IconThemeData(color: AppColors.primaryColor),
-          elevation: 0.0,
-          backgroundColor: AppColors.primaryColor,
-          leading: IconButton(
+      extendBodyBehindAppBar: false,
+        appBar:appBarObj.appBar(100,Text("Profile", style: SharedFonts.primaryStyleStyle),null,IconButton(
             color: Colors.black,
             icon: const Icon(LineAwesomeIcons.angle_left),
             onPressed: () {
               Navigator.pushNamed(context, 'profile');
             },
-          ),
-          centerTitle: true,
-          title: Text("Profile", style: SharedFonts.primaryStyleStyle),
-        ),
+          )) ,
         body: SingleChildScrollView(
           child: Container(
             padding: const EdgeInsets.all(8.0),
@@ -151,3 +144,4 @@ Widget TextFieldBuilder(String labeltxt, TextInputType x, Icon s) {
     ),
   );
 }
+

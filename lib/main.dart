@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:mailing_system/AppViews/contacs.dart';
+import 'package:mailing_system/AppViews/editProfile_screen.dart';
 import 'package:mailing_system/AppViews/inboxPage.dart';
 import 'package:mailing_system/AppViews/login_screen.dart';
 import 'package:mailing_system/AppViews/mail_Screen.dart';
+import 'package:mailing_system/AppViews/profile_screen.dart';
 import 'package:mailing_system/AppViews/register_screen.dart';
 import 'package:mailing_system/AppViews/sendmessage_screen.dart';
 import 'package:sqflite/sqflite.dart';
@@ -20,7 +22,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: inboxPage(),
+      home: EditProfileScreen(),
     );
   }
 }
