@@ -7,6 +7,8 @@ import 'package:mailing_system/AppViews/mail_Screen2.dart';
 import 'package:mailing_system/AppViews/register_screen.dart';
 // import 'package:mailing_system/AppViews/inboxPage.dart';
 import 'package:mailing_system/AppViews/sendmessage_screen.dart';
+import 'package:sqflite/sqflite.dart';
+
 void main()=>(runApp(const MyApp()));
 
 class MyApp extends StatelessWidget {

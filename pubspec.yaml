@@ -7,6 +7,7 @@ environment:
   sdk: '>=2.18.5 <3.0.0'
 
 dependencies:
+  sqflite: ^2.2.2
   file_picker:
   badges: ^2.0.3
   anim_search_bar: ^2.0.2
