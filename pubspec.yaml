@@ -10,6 +10,7 @@ dependencies:
   file_picker:
   badges: ^2.0.3
   anim_search_bar: ^2.0.2
+  google_nav_bar: ^5.0.6
   flutter:
     sdk: flutter
   
