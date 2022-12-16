@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:badges/badges.dart';
+import 'package:badges/badges.dart' as bd;
 import 'package:anim_search_bar/anim_search_bar.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
@@ -31,28 +31,31 @@ class _inboxPageState extends State<inboxPage> {
     return Scaffold(
         backgroundColor: Color.fromARGB(255, 239, 239, 239),
         //el app bar hena lazmeto en el status bar yb2a nafs loon el theme
-        appBar: appBarObj.appBar(80, null, <Widget>[
-          IconButton(
-              onPressed: () {},
-              icon: Icon(
-                Icons.edit,
-                color: Colors.black,
-                size: 25,
-              ),
-              splashRadius: 25)],
-          Container(
-            alignment: Alignment.centerRight,
-            child: CircleAvatar(
-                backgroundImage: NetworkImage(
-                    'https://lh3.googleusercontent.com/a/AEdFTp7HB1ZjlorTV0wExaxhYEFjVlpn5ODkxRXx6aSHnw=s288-p-rw-no'),
-                radius: 26,
-                backgroundColor: Color.fromARGB(255, 239, 239, 239),
-                child: IconButton( 
-                  icon: Icon(color: Colors.transparent, Icons.person),
+        appBar: appBarObj.appBar(
+            80,
+            null,
+            <Widget>[
+              IconButton(
                   onPressed: () {},
-                )),
-          )
-        ),
+                  icon: Icon(
+                    Icons.edit,
+                    color: Colors.black,
+                    size: 25,
+                  ),
+                  splashRadius: 25)
+            ],
+            Container(
+              alignment: Alignment.centerRight,
+              child: CircleAvatar(
+                  backgroundImage: NetworkImage(
+                      'https://lh3.googleusercontent.com/a/AEdFTp7HB1ZjlorTV0wExaxhYEFjVlpn5ODkxRXx6aSHnw=s288-p-rw-no'),
+                  radius: 26,
+                  backgroundColor: Color.fromARGB(255, 239, 239, 239),
+                  child: IconButton(
+                    icon: Icon(color: Colors.transparent, Icons.person),
+                    onPressed: () {},
+                  )),
+            )),
         body: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
@@ -101,8 +104,8 @@ class _inboxPageState extends State<inboxPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Badge(
-                    position: BadgePosition.topEnd(top: 10, end: 10),
+                  bd.Badge(
+                    position: bd.BadgePosition.topEnd(top: 10, end: 10),
                   ),
                   SizedBox(
                     width: 5,
@@ -220,8 +223,9 @@ class _inboxPageState extends State<inboxPage> {
                           child: Padding(
                             padding: EdgeInsets.only(
                                 top: height / 32, left: width / 64),
-                            child: Badge(
-                                position: BadgePosition.topEnd(top: 5, end: 10),
+                            child: bd.Badge(
+                                position:
+                                    bd.BadgePosition.topEnd(top: 5, end: 10),
                                 badgeContent: Icon(
                                   Icons.circle,
                                   color: Colors.transparent,
