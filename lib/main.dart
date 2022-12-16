@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:mailing_system/AppViews/contacs.dart';
 import 'package:mailing_system/AppViews/inboxPage.dart';
 import 'package:mailing_system/AppViews/login_screen.dart';
-import 'package:mailing_system/AppViews/mail_Screen.dart';
 import 'package:mailing_system/AppViews/mail_Screen2.dart';
 import 'package:mailing_system/AppViews/register_screen.dart';
 import 'package:mailing_system/AppViews/sendmessage_screen.dart';
