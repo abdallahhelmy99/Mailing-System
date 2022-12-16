@@ -57,14 +57,6 @@ class EmailScreen2 extends StatelessWidget {
         ],
         null,
       ),
-      // appBar: AppBar(
-      //   systemOverlayStyle: SystemUiOverlayStyle(
-      //       statusBarColor: Colors.transparent,
-      //       statusBarIconBrightness: Brightness.dark),
-      //   backgroundColor: Colors.transparent,
-      //   elevation: 0,
-      //   toolbarHeight: 0,
-      // ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
