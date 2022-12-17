@@ -36,6 +36,17 @@ class _inboxPageState extends State<inboxPage> {
             null,
             <Widget>[
               IconButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, "LoginScreen");
+                  },
+                  icon: Icon(
+                    Icons.logout_outlined,
+                    color: Colors.black,
+                    size: 28,
+                  ),
+                  splashRadius: 25)
+              ,
+              IconButton(
                   onPressed: () {},
                   icon: Icon(
                     Icons.edit,

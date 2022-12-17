@@ -21,7 +21,8 @@ class _SendMessageState extends State<SendMessage> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: false,
-      appBar: appBar.appBar(150.0,
+      appBar: appBar.appBar(
+        150.0,
         Column(
           children: [
             Padding(
@@ -33,7 +34,7 @@ class _SendMessageState extends State<SendMessage> {
                 const Padding(
                   padding: EdgeInsets.only(top: 15),
                   child:
-                      Icon(Icons.cloud_circle, color: Colors.white, size: 30),
+                      Icon(Icons.cloud_circle_sharp, color: Colors.lightBlue, size: 30),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 15.0, left: 10),
@@ -179,13 +180,19 @@ class _SendMessageState extends State<SendMessage> {
                 shrinkWrap: true,
                 itemCount: pickVariable?.files.length ?? 0,
                 itemBuilder: ((context, index) {
-                  return Card(
-                    elevation: 5,
-                    color: Colors.blueGrey,
-                    borderOnForeground: false,
-                    child: Row(
-                      children: removeAttach == true
-                          ? [
+                  return removeAttach == true
+                      ? Card(
+                          shape: const StadiumBorder(
+                            side: BorderSide(
+                              color: Colors.black,
+                              width: 2.0,
+                            ),
+                          ),
+                          elevation: 0,
+                          color: Colors.lightBlue[900],
+                          borderOnForeground: false,
+                          child: Row(
+                            children: [
                               IconButton(
                                   onPressed: () {
                                     setState(() {
@@ -198,10 +205,10 @@ class _SendMessageState extends State<SendMessage> {
                                   )),
                               Text(pickVariable?.files[index].name ?? " ",
                                   style: SharedFonts.attachStyle)
-                            ]
-                          : [],
-                    ),
-                  );
+                            ],
+                          ),
+                        )
+                      : const SizedBox();
                 }),
               ),
             ),
