@@ -20,7 +20,6 @@ class _SendMessageState extends State<SendMessage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[200],
       extendBodyBehindAppBar: false,
       appBar: appBar.appBar(150.0,
         Column(
@@ -180,23 +179,28 @@ class _SendMessageState extends State<SendMessage> {
                 shrinkWrap: true,
                 itemCount: pickVariable?.files.length ?? 0,
                 itemBuilder: ((context, index) {
-                  return Row(
-                    children: removeAttach == true
-                        ? [
-                            IconButton(
-                                onPressed: () {
-                                  setState(() {
-                                    removeAttach = false;
-                                  });
-                                },
-                                icon: const Icon(
-                                  Icons.cancel,
-                                  color: Colors.red,
-                                )),
-                            Text(pickVariable?.files[index].name ?? " ",
-                                style: SharedFonts.attachStyle)
-                          ]
-                        : [],
+                  return Card(
+                    elevation: 5,
+                    color: Colors.blueGrey,
+                    borderOnForeground: false,
+                    child: Row(
+                      children: removeAttach == true
+                          ? [
+                              IconButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      removeAttach = false;
+                                    });
+                                  },
+                                  icon: const Icon(
+                                    Icons.cancel,
+                                    color: Colors.red,
+                                  )),
+                              Text(pickVariable?.files[index].name ?? " ",
+                                  style: SharedFonts.attachStyle)
+                            ]
+                          : [],
+                    ),
                   );
                 }),
               ),
@@ -205,6 +209,12 @@ class _SendMessageState extends State<SendMessage> {
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
+        elevation: 0,
+        backgroundColor: Colors.white,
+        selectedFontSize: 13,
+        selectedItemColor: Colors.black,
+        unselectedItemColor: Colors.black,
+        unselectedFontSize: 13,
         items: [
           BottomNavigationBarItem(
               icon: IconButton(
