@@ -26,9 +26,10 @@ class RegisterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: false,
       backgroundColor: Colors.grey[200],
       appBar: appBarObj.appBar(
-          150,
+          100,
           Container(
               child: Text(
             "Register",
@@ -37,66 +38,64 @@ class RegisterScreen extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(10),
         child: SingleChildScrollView(
-          child: Container(
-            child: Column(
-              children: [
-                const SizedBox(
-                  height: 10,
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 10,
+              ),
+              TextFieldBuilder('First Name', TextInputType.name,
+                  const Icon(Icons.abc), false),
+              const SizedBox(
+                height: 20,
+              ),
+              TextFieldBuilder('Last Name', TextInputType.name,
+                  const Icon(Icons.abc), false),
+              const SizedBox(
+                height: 20,
+              ),
+              TextFieldBuilder('Email Address', TextInputType.emailAddress,
+                  const Icon(Icons.alternate_email), false),
+              const SizedBox(
+                height: 20,
+              ),
+              TextFieldBuilder('Password', TextInputType.visiblePassword,
+                  const Icon(Icons.password), true),
+              const SizedBox(
+                height: 20,
+              ),
+              TextFieldBuilder(
+                  'Confirm Password',
+                  TextInputType.visiblePassword,
+                  const Icon(Icons.password),
+                  true),
+              const SizedBox(
+                height: 20,
+              ),
+              TextFieldBuilder('Phone Number', TextInputType.number,
+                  const Icon(Icons.phone), false),
+              const SizedBox(
+                height: 20,
+              ),
+              TextFieldBuilder('Date of birth', TextInputType.datetime,
+                  const Icon(Icons.date_range), false),
+              const SizedBox(
+                height: 40,
+              ),
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Theme.of(context).accentColor,
                 ),
-                TextFieldBuilder('First Name', TextInputType.name,
-                    const Icon(Icons.abc), false),
-                const SizedBox(
-                  height: 20,
-                ),
-                TextFieldBuilder('Last Name', TextInputType.name,
-                    const Icon(Icons.abc), false),
-                const SizedBox(
-                  height: 20,
-                ),
-                TextFieldBuilder('Email Address', TextInputType.emailAddress,
-                    const Icon(Icons.alternate_email), false),
-                const SizedBox(
-                  height: 20,
-                ),
-                TextFieldBuilder('Password', TextInputType.visiblePassword,
-                    const Icon(Icons.password), true),
-                const SizedBox(
-                  height: 20,
-                ),
-                TextFieldBuilder(
-                    'Confirm Password',
-                    TextInputType.visiblePassword,
-                    const Icon(Icons.password),
-                    true),
-                const SizedBox(
-                  height: 20,
-                ),
-                TextFieldBuilder('Phone Number', TextInputType.number,
-                    const Icon(Icons.phone), false),
-                const SizedBox(
-                  height: 20,
-                ),
-                TextFieldBuilder('Date of birth', TextInputType.datetime,
-                    const Icon(Icons.date_range), false),
-                const SizedBox(
-                  height: 40,
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Theme.of(context).accentColor,
-                  ),
-                  width: double.infinity,
-                  child: MaterialButton(
-                    onPressed: () {},
-                    child: const Text(
-                      'Submit',
-                      style: TextStyle(color: Colors.white),
-                    ),
+                width: double.infinity,
+                child: MaterialButton(
+                  onPressed: () {},
+                  child: const Text(
+                    'Submit',
+                    style: TextStyle(color: Colors.white),
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

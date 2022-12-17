@@ -61,34 +61,6 @@ class _inboxPageState extends State<inboxPage> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               SizedBox(height: height / 32),
-              //Row fe profile w zorar lesa hanshof hy3ml eh
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.start,
-              //   children: [
-              //     SizedBox(
-              //         width: width / 5,
-              //         child: CircleAvatar(
-              //             backgroundImage: NetworkImage(
-              //                 'https://lh3.googleusercontent.com/a/AEdFTp7HB1ZjlorTV0wExaxhYEFjVlpn5ODkxRXx6aSHnw=s288-p-rw-no'),
-              //             radius: 26,
-              //             backgroundColor: Color.fromARGB(255, 239, 239, 239),
-              //             child: IconButton(
-              //               icon: Icon(color: Colors.transparent, Icons.person),
-              //               onPressed: () {},
-              //             ))),
-              //     Padding(
-              //       padding: const EdgeInsets.only(left:260.0),
-              //       child: IconButton(
-              //           onPressed: () {},
-              //           icon: Icon(
-              //             Icons.edit,
-              //             color: Colors.black,
-              //             size: 25,
-              //           ),
-              //           splashRadius: 25),
-              //     ),
-              //   ],
-              // ),
               SizedBox(
                 height: height / 128,
               ),
