@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:mailing_system/SharedMaterial/shared_colors.dart';
-import 'package:mailing_system/SharedMaterial/shared_styles.dart';
 
 class Splash extends StatefulWidget {
   const Splash({Key? key}) : super(key: key);
@@ -15,7 +14,7 @@ class _SplashState extends State<Splash> {
   void initState() {
     super.initState();
     Timer(const Duration(seconds: 3),
-        () => Navigator.pushReplacementNamed(context, 'profile'));
+        () => Navigator.pushReplacementNamed(context, 'LoginScreen'));
   }
 
   @override

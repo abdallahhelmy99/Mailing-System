@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:mailing_system/SharedMaterial/shared_styles.dart';
+import 'package:mailing_system/SharedMaterial/shared_widgets.dart';
 
 class RegisterScreen extends StatelessWidget {
-  const RegisterScreen({Key? key}) : super(key: key);
-
+  RegisterScreen({Key? key}) : super(key: key);
+  SharedWidgets appBarObj = SharedWidgets();
   Widget TextFieldBuilder(
       String labeltxt, TextInputType x, Icon s, bool obsecure) {
     return Container(
@@ -24,22 +26,20 @@ class RegisterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: false,
+      backgroundColor: Colors.grey[200],
+      appBar: appBarObj.appBar(
+          100,
+          Container(
+              child: Text(
+            "Register",
+            style: SharedFonts.thirdStyle,
+          ))),
       body: Padding(
-        padding: const EdgeInsets.all(30),
+        padding: const EdgeInsets.all(10),
         child: SingleChildScrollView(
           child: Column(
             children: [
-              Container(
-                padding: const EdgeInsets.only(top: 45, bottom: 45),
-                alignment: Alignment.topLeft,
-                child: const Text(
-                  'Register',
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 40),
-                ),
-              ),
               const SizedBox(
                 height: 10,
               ),

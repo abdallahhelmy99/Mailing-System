@@ -1,55 +1,66 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:mailing_system/SharedMaterial/shared_widgets.dart';
 
 class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
+
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  SharedWidgets appBarObj = SharedWidgets();
+ bool isObsecure = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: appBarObj.appBar(
+        150,
+        Container(
+          padding: const EdgeInsets.only(top: 100, bottom: 60),
+          alignment: Alignment.topLeft,
+          child: Text(
+            'Sign In',
+            style: TextStyle(
+                color: Theme.of(context).bottomAppBarColor,
+                fontWeight: FontWeight.bold,
+                fontSize: 30.0),
+          ),
+        ),
+      ),
+      extendBodyBehindAppBar: false,
       body: Padding(
         padding: const EdgeInsets.all(30.0),
         child: SingleChildScrollView(
           child: Column(
             children: [
-              Container(
-                padding: EdgeInsets.only(top: 100, bottom: 60),
-                alignment: Alignment.topLeft,
-                child: Text(
-                  'Sign In',
-                  style: TextStyle(
-                      color: Theme.of(context).accentColor,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 30.0),
-                ),
-              ),
               Form(
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 child: TextFormField(
                   onFieldSubmitted: (value) {},
                   keyboardType: TextInputType.emailAddress,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                       labelText: 'Email Address',
                       prefixIcon: Icon(Icons.email)),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10.0,
               ),
               TextFormField(
-                obscureText: true,
-                onFieldSubmitted: (value) {},
+                obscureText: isObsecure,
                 keyboardType: TextInputType.visiblePassword,
                 decoration: InputDecoration(
-                    suffixIcon: Icon(Icons.remove_red_eye_outlined),
+                    suffixIcon:IconButton(onPressed: (){
+                      setState(() {
+                        isObsecure=!isObsecure;
+                      });
+                    }, 
+                    icon:Icon(isObsecure == true ? Icons.visibility_rounded : Icons.visibility_off  )  ),
                     labelText: 'Password',
-                    prefixIcon: Icon(Icons.lock)),
+                    prefixIcon: const Icon(Icons.lock)),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 80,
               ),
               Column(
@@ -62,14 +73,16 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     width: double.infinity,
                     child: MaterialButton(
-                      onPressed: () {},
-                      child: Text(
+                      onPressed: () {
+                        Navigator.pushNamed(context, ("Inboxpage"));
+                      },
+                      child: const Text(
                         'Login',
                         style: TextStyle(color: Colors.white),
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Container(
@@ -79,8 +92,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     width: double.infinity,
                     child: MaterialButton(
-                      onPressed: () {},
-                      child: Text(
+                      onPressed: () {
+                        Navigator.pushNamed(context, "RegisterScreen");
+                      },
+                      child: const Text(
                         'Don\'t have an account ? Register ',
                         style: TextStyle(color: Colors.black),
                       ),

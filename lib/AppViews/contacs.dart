@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mailing_system/SharedMaterial/shared_colors.dart';
-import 'package:mailing_system/SharedMaterial/shared_styles.dart';
+import 'package:mailing_system/SharedMaterial/shared_widgets.dart';
 
 class Contacts extends StatefulWidget {
   const Contacts({super.key});
@@ -10,23 +10,16 @@ class Contacts extends StatefulWidget {
 }
 
 class _ContactsState extends State<Contacts> {
+  SharedWidgets appBarObj=SharedWidgets();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          backgroundColor: AppColors.thirdColor,
-          leading:BackButton(
-                onPressed: () {},
-                  color: Colors.black,
-                ),
-          title: const Text('My Contacts',
+      appBar: appBarObj.appBar(80.0,const Text('My Contacts',
               style: TextStyle(
                   fontSize: 30,
                   color: Colors.black,
                   fontWeight: FontWeight.bold,
-                  fontFamily: 'Cabin')),
-          elevation: 0.0,
-          actions: <Widget>[
+                  fontFamily: 'Cabin')),<Widget>[
             IconButton(
                 onPressed: () {},
                 icon: const Icon(
@@ -35,7 +28,11 @@ class _ContactsState extends State<Contacts> {
                   size: 30,
                 ),
                 splashRadius: 25),
-          ]),
+          ],BackButton(
+                onPressed: () {},
+                  color: Colors.black,
+                ),
+) ,
       body: ListView(
         scrollDirection: Axis.vertical,
         children: [

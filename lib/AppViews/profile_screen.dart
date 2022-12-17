@@ -2,39 +2,36 @@ import 'package:flutter/material.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:mailing_system/SharedMaterial/shared_colors.dart';
 import 'package:mailing_system/SharedMaterial/shared_styles.dart';
+import 'package:mailing_system/SharedMaterial/shared_widgets.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
-
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  SharedWidgets appBarObj = SharedWidgets();
   @override
   Widget build(BuildContext context) {
     var isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
     return Scaffold(
-      appBar: AppBar(
-          iconTheme: const IconThemeData(color: Colors.black),
-          actionsIconTheme: IconThemeData(color: AppColors.primaryColor),
-          elevation: 0.0,
-          backgroundColor: AppColors.primaryColor,
-          leading: IconButton(
-            color: Colors.black,
-            icon: const Icon(LineAwesomeIcons.angle_left),
-            onPressed: () {},
-          ),
-          centerTitle: true,
-          title: Text("Profile", style: SharedFonts.primaryStyleStyle),
-          actions: [
+      appBar: appBarObj.appBar(
+          100,
+          Text("Profile", style: SharedFonts.AppBarStyle),
+          [
             IconButton(
                 onPressed: () {},
                 icon: Icon(
                   isDark ? LineAwesomeIcons.sun : LineAwesomeIcons.moon,
                   color: Colors.black,
                 ))
-          ]),
+          ],
+          IconButton(
+            color: Colors.black,
+            icon: const Icon(LineAwesomeIcons.angle_left),
+            onPressed: () {},
+          )),
       body: SingleChildScrollView(
         child: Container(
           padding: const EdgeInsets.all(8.0),

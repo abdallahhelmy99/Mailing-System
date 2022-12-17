@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mailing_system/SharedMaterial/shared_styles.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:mailing_system/SharedMaterial/shared_widgets.dart';
 
 class SendMessage extends StatefulWidget {
   const SendMessage({super.key});
@@ -9,6 +10,7 @@ class SendMessage extends StatefulWidget {
 }
 
 class _SendMessageState extends State<SendMessage> {
+  SharedWidgets appBar = SharedWidgets();
   String curretnLoggedUserMail = "123@gmail.com";
   TextEditingController subjectFieldController = TextEditingController();
   TextEditingController receiverFieldController = TextEditingController();
@@ -18,10 +20,9 @@ class _SendMessageState extends State<SendMessage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[200],
       extendBodyBehindAppBar: false,
-      appBar: AppBar(
-        title: Column(
+      appBar: appBar.appBar(150.0,
+        Column(
           children: [
             Padding(
               padding: const EdgeInsets.only(right: 120.0),
@@ -45,22 +46,7 @@ class _SendMessageState extends State<SendMessage> {
             )
           ],
         ),
-        toolbarHeight: 150,
-        backgroundColor: Colors.transparent,
-        shadowColor: Colors.black,
-        elevation: 40,
-        shape: BeveledRectangleBorder(borderRadius: BorderRadius.circular(0)),
-        flexibleSpace: Container(
-          decoration: const BoxDecoration(
-              borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(20),
-                  bottomRight: Radius.circular(20)),
-              gradient: LinearGradient(
-                  colors: [Colors.transparent, Colors.teal],
-                  begin: Alignment.bottomCenter,
-                  end: Alignment.topCenter)),
-        ),
-        actions: <Widget>[
+        <Widget>[
           Padding(
             padding: const EdgeInsets.only(right: 15.0),
             child: IconButton(
@@ -193,22 +179,28 @@ class _SendMessageState extends State<SendMessage> {
                 shrinkWrap: true,
                 itemCount: pickVariable?.files.length ?? 0,
                 itemBuilder: ((context, index) {
-                  return Row(
-                    children: removeAttach == true
-                        ? [
-                            IconButton(
-                                onPressed: () {
-                                  setState(() {
-                                    removeAttach = false;
-                                  });
-                                },
-                                icon: const Icon(
-                                  Icons.cancel,
-                                  color: Colors.red,
-                                )),
-                            Text(pickVariable?.files[index].name ?? " " ,style: SharedFonts.attachStyle)
-                          ]
-                        : [],
+                  return Card(
+                    elevation: 5,
+                    color: Colors.blueGrey,
+                    borderOnForeground: false,
+                    child: Row(
+                      children: removeAttach == true
+                          ? [
+                              IconButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      removeAttach = false;
+                                    });
+                                  },
+                                  icon: const Icon(
+                                    Icons.cancel,
+                                    color: Colors.red,
+                                  )),
+                              Text(pickVariable?.files[index].name ?? " ",
+                                  style: SharedFonts.attachStyle)
+                            ]
+                          : [],
+                    ),
                   );
                 }),
               ),
@@ -217,6 +209,12 @@ class _SendMessageState extends State<SendMessage> {
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
+        elevation: 0,
+        backgroundColor: Colors.white,
+        selectedFontSize: 13,
+        selectedItemColor: Colors.black,
+        unselectedItemColor: Colors.black,
+        unselectedFontSize: 13,
         items: [
           BottomNavigationBarItem(
               icon: IconButton(
@@ -232,10 +230,8 @@ class _SendMessageState extends State<SendMessage> {
                     removeAttach = true;
                     pickVariable = await FilePicker.platform
                         .pickFiles(allowMultiple: true);
-                    if(pickVariable !=null){
-                      setState(() {
-                        
-                      });
+                    if (pickVariable != null) {
+                      setState(() {});
                     }
                   },
                   icon: const Icon(
