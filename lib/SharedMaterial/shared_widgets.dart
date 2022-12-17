@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class SharedWidgets{
-
-AppBar appBar(double toolBarHeight, [dynamic titleContent ,dynamic actionsContent, dynamic leadingContent]){
-  return AppBar(
-          title: titleContent ,
-          leading: leadingContent,
+class SharedWidgets {
+  AppBar appBar(double toolBarHeight,
+      [dynamic titleContent, dynamic actionsContent, dynamic leadingContent]) {
+    return AppBar(
+        title: titleContent,
+        leading: leadingContent,
         toolbarHeight: toolBarHeight,
         backgroundColor: Colors.transparent,
         shadowColor: Colors.black,
@@ -21,8 +21,6 @@ AppBar appBar(double toolBarHeight, [dynamic titleContent ,dynamic actionsConten
                   begin: Alignment.bottomCenter,
                   end: Alignment.topCenter)),
         ),
-        actions: actionsContent
-  );
-}
-
+        actions: actionsContent);
+  }
 }
