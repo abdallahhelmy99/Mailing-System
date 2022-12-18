@@ -7,11 +7,14 @@ import 'package:mailing_system/AppViews/mail_Screen.dart';
 import 'package:mailing_system/AppViews/profile_screen.dart';
 import 'package:mailing_system/AppViews/register_screen.dart';
 import 'package:mailing_system/AppViews/sendmessage_screen.dart';
-import 'package:sqflite/sqflite.dart';
-void main()=>(runApp(const MyApp()));
+import 'package:mailing_system/AppViews/splash_screen.dart';
+
+import 'dbHelper.dart';
+void main()=>(runApp(MyApp()));
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  MyApp({super.key});
+
 
   @override
   Widget build(BuildContext context) {

@@ -18,7 +18,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       appBar: appBarObj.appBar(
           100,
-          Text("Profile", style: SharedFonts.primaryStyleStyle),
+          Text("Profile", style: SharedFonts.AppBarStyle),
           [
             IconButton(
                 onPressed: () {},

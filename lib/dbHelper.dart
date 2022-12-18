@@ -19,7 +19,6 @@ class dbHelper {
 
   _onCR(Database db, int v) async {
     await db.execute(
-        // 'CREATE TABLE "Tasks" (id INTEGER PRIMARY KEY AUTOINCREMENT, task TEXT NOT NULL, date TEXT, done TEXT NOT NULL)');
         'CREATE TABLE "Users" (userID INTEGER PRIMARY KEY AUTOINCREMENT, fname TEXT NOT NULL, lname TEXT NOT NULL,  dob DATETIME, email TEXT NOT NULL, password TEXT NOT NULL, phonenum TEXT NOT NULL)');
     db.execute(
         'CREATE TABLE "Contacts" (contact_ID INTEGER PRIMARY KEY AUTOINCREMENT,contactname TEXT NOT NULL , contactemail TEXT NOT NULL,  phonenum TEXT NOT NULL, relation TEXT NOT NULL )');
@@ -35,7 +34,7 @@ class dbHelper {
 
   initialDB() async {
     var databasesPath = await getDatabasesPath();
-    var path = join(databasesPath, 'tasks.db');
+    var path = join(databasesPath, 'Mail_SystemDatabase.db');
     Database myDB = await openDatabase(path, onCreate: _onCR, version: 1);
     return myDB;
   }
@@ -68,7 +67,7 @@ class dbHelper {
 
   deleteDatabase() async {
     Database? mydb = await db;
-    int response = await mydb!.rawDelete('DROP Tasks');
+    int response = await mydb!.rawDelete('DROP Users');
   }
 
   Future<int> updateData(String sql) async {

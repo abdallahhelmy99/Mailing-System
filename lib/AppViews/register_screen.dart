@@ -19,20 +19,13 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreenState extends State<RegisterScreen> {
   SharedWidgets appBarObj = SharedWidgets();
 
-  dbHelper helper = new dbHelper();
-
+  dbHelper helper = new dbHelper(); //3ayzen nshoof 7all 3shan man3odsh ncreate object kol mara (Singleton)
   TextEditingController fname = new TextEditingController();
-
   TextEditingController lname = TextEditingController();
-
   TextEditingController email = TextEditingController();
-
   TextEditingController pass = TextEditingController();
-
   TextEditingController confirmpass = TextEditingController();
-
   TextEditingController phone = TextEditingController();
-
   TextEditingController dob = TextEditingController();
 
   Widget TextFieldBuilder(
@@ -43,6 +36,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           color: Colors.grey[350], borderRadius: BorderRadius.circular(20)),
       child: TextFormField(
         obscureText: obsecure,
+        controller: text,
         decoration: InputDecoration(
             labelText: labeltxt, border: InputBorder.none, suffixIcon: s),
         keyboardType: x,
@@ -116,18 +110,27 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   width: double.infinity,
                   child: MaterialButton(
                     onPressed: () {
-                    setState(() {
-                      Future<int> x = helper.insertData(
-                          "INSERT INTO Users(fname,lname,dob,email,password,phonenum) VALUES('${fname.text}','${lname.text}','${email.text}','${pass.text}','${phone.text}','${dob.text}')");
-                      print(x.toString());
-                      if (x == 1){
-                        print("Insertion Success");
+                    setState((){
+                      if ( fname.text != "" && lname.text != "" && email.text != "" && pass.text != "" && phone.text != "" && dob.text != "") {
+                        helper.insertData(
+                            "INSERT INTO Users(fname,lname,dob,email,password,phonenum) VALUES('${fname
+                                .text}','${lname.text}','${email.text}','${pass
+                                .text}','${phone.text}','${dob.text}')");
+
+                        const regist_Success = SnackBar(
+                          content: Text('Account Created Successfully !'),
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(regist_Success);
+
+                        //navigate lel bernameg nafso (inbox page) HAZEM
                       }
-                      else{
-                        print("Insertion Failed");
+                      else {
+                        const errorMessage = SnackBar(
+                          content: Text('Please Fill All Fields And Try Again !'),
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(errorMessage);
                       }
-                    });
-                    // Navigator.pushNamed(context, 'login');
+                      });
                   },
                     child: const Text(
                       'Submit',
