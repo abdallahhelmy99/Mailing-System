@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mailing_system/SharedMaterial/shared_widgets.dart';
 import 'package:mailing_system/dbHelper.dart';
+import 'package:mailing_system/SharedMaterial/globals.dart';
 
 import '../Classes/User.dart';
 
@@ -16,18 +17,7 @@ class _LoginScreenState extends State<LoginScreen> {
   bool isObsecure = true;
   TextEditingController mail = new TextEditingController();
   TextEditingController pass = new TextEditingController();
-  dbHelper helper = dbHelper();
-  List<User>? Users;
 
-  void readData() async{
-    Users = await helper.readUsers();
-  }
-
-  @override
-  void initState() {
-    readData();
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,103 +39,32 @@ class _LoginScreenState extends State<LoginScreen> {
       extendBodyBehindAppBar: false,
       body: Padding(
         padding: const EdgeInsets.all(30.0),
-        child: Column(
-          children: [
-            Form(
-              autovalidateMode: AutovalidateMode.onUserInteraction,
-              child: TextFormField(
-                controller: mail,
-                onFieldSubmitted: (value) {},
-                keyboardType: TextInputType.emailAddress,
-                decoration: const InputDecoration(
-                    labelText: 'Email Address',
-                    prefixIcon: Icon(Icons.email)),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Form(
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                child: TextFormField(
+                  controller: mail,
+                  onFieldSubmitted: (value) {},
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: const InputDecoration(
+                      labelText: 'Email Address',
+                      prefixIcon: Icon(Icons.email)),
+                ),
               ),
-            ),
-            const SizedBox(
-              height: 10.0,
-            ),
-            TextFormField(
-              controller: pass,
-              obscureText: isObsecure,
-              keyboardType: TextInputType.visiblePassword,
-              decoration: InputDecoration(
-                  suffixIcon:IconButton(onPressed: (){
-                    setState(() {
-                      isObsecure=!isObsecure;
-                    });
-                  },
-                  icon:Icon(isObsecure == true ? Icons.visibility_rounded : Icons.visibility_off  )  ),
-                  labelText: 'Password',
-                  prefixIcon: const Icon(Icons.lock)),
-            ),
-            const SizedBox(
-              height: 80,
-            ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Theme.of(context).accentColor,
-                  ),
-                  width: double.infinity,
-                  child: MaterialButton(
-                    onPressed: () {
-
-                      //Navigator.pushNamed(context, ("Inboxpage"));
-                    },
-                    child: const Text(
-                      'Login',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Theme.of(context).primaryColor,
-                  ),
-                  width: double.infinity,
-                  child: MaterialButton(
-                    onPressed: () {
+              const SizedBox(
+                height: 10.0,
+              ),
+              TextFormField(
+                controller: pass,
+                obscureText: isObsecure,
+                keyboardType: TextInputType.visiblePassword,
+                decoration: InputDecoration(
+                    suffixIcon:IconButton(onPressed: (){
                       setState(() {
-                        for(int i = 0; i < Users!.length; i++){
-                          if ( mail.text == Users![i].email && pass.text == Users![i].password ){
-                            const loggedIn = SnackBar(
-                              content: Text('Logged In Successfully'),
-                              backgroundColor: Colors.green,
-                            );
-                            ScaffoldMessenger.of(context).showSnackBar(loggedIn);
-                            //Navigate To Inbox
-                          }
-                          else{
-                            const loggedIn = SnackBar(
-                              content: Text('Credentials Not Found, Please Try Again'),
-                              backgroundColor: Colors.red,
-                            );
-                            ScaffoldMessenger.of(context).showSnackBar(loggedIn);
-                          }
-
-                        }
+                        isObsecure=!isObsecure;
                       });
-<<<<<<< HEAD
-                      //Navigator.pushNamed(context, "RegisterScreen");
-                    },
-                    child: const Text(
-                      'Don\'t have an account ? Register ',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ),
-                ),
-              ],
-            )
-          ],
-=======
                     }, 
                     icon:Icon(isObsecure == true ? Icons.visibility_rounded : Icons.visibility_off  )  ),
                     labelText: 'Password',
@@ -165,8 +84,36 @@ class _LoginScreenState extends State<LoginScreen> {
                     width: double.infinity,
                     child: MaterialButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, ("inbox"));
-                      },
+                        setState(() {
+                          if ( mail.text != "" || pass.text != "" ){
+                            for ( int i = 0; i < globalVariables.Users!.length; i++){
+                              if ( mail.text == globalVariables.Users![i].email && pass.text == globalVariables.Users![i].password ){
+                                const loginGreeting = SnackBar(
+                                  content: Text('Login Successfull !'),
+                                  backgroundColor: Colors.green,
+                                );
+                                ScaffoldMessenger.of(context).showSnackBar(loginGreeting);
+                                Navigator.pushNamed(context, "inbox");
+                              }
+                              else if ( i == globalVariables.Users!.length){
+                                 const credsError = SnackBar(
+                                  content: Text('Credentials Not Found, Please Try Again !'),
+                                  backgroundColor: Colors.red,
+                                );
+                                ScaffoldMessenger.of(context).showSnackBar(credsError);
+                              }
+                            }
+                          }
+                          else{
+                            const blankError = SnackBar(
+                              content: Text('Please Fill Email and Password Fields !'),
+                              backgroundColor: Colors.red,
+                            );
+                            ScaffoldMessenger.of(context).showSnackBar(blankError);
+                          }
+                        }
+                        );
+                        },
                       child: const Text(
                         'Login',
                         style: TextStyle(color: Colors.white),
@@ -196,7 +143,6 @@ class _LoginScreenState extends State<LoginScreen> {
               )
             ],
           ),
->>>>>>> fa82aa939f709acf4c013dec25de33072c3a5b7b
         ),
       ),
     );

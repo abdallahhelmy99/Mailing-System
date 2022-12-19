@@ -8,6 +8,8 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:badges/badges.dart' as bd;
 import 'package:anim_search_bar/anim_search_bar.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:mailing_system/Classes/User.dart';
+
 
 import '../SharedMaterial/shared_widgets.dart';
 
@@ -19,8 +21,8 @@ class inboxPage extends StatefulWidget {
 class _inboxPageState extends State<inboxPage> {
   var size, height, width;
   TextEditingController text = new TextEditingController();
-
   var selectedfolder = 'Inbox';
+
 
   @override
   Widget build(BuildContext context) {
@@ -110,7 +112,7 @@ class _inboxPageState extends State<inboxPage> {
               ),
               //El Icons bta3t El folders
               Padding(
-                padding: EdgeInsets.only(left: width / 6),
+                padding: EdgeInsets.only(left: width / 12),
                 child: Row(
                   children: [
                     CircleAvatar(
@@ -151,6 +153,17 @@ class _inboxPageState extends State<inboxPage> {
                         radius: 30,
                         child: IconButton(
                           icon: Icon(Icons.folder_special, color: Colors.black),
+                          onPressed: () {},
+                          iconSize: 40,
+                        )),
+                    SizedBox(
+                      width: width / 64,
+                    ),
+                    CircleAvatar(
+                        backgroundColor: Colors.white,
+                        radius: 30,
+                        child: IconButton(
+                          icon: Icon(Icons.contacts, color: Colors.black),
                           onPressed: () {},
                           iconSize: 40,
                         )),

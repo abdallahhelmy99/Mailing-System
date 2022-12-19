@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:mailing_system/SharedMaterial/globals.dart';
 import 'package:mailing_system/SharedMaterial/shared_colors.dart';
 
 class Splash extends StatefulWidget {
@@ -12,6 +13,7 @@ class Splash extends StatefulWidget {
 class _SplashState extends State<Splash> {
   @override
   void initState() {
+    globalVariables.readData();
     super.initState();
     Timer(const Duration(seconds: 3),
         () => Navigator.pushReplacementNamed(context, 'login'));

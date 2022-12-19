@@ -8,6 +8,8 @@ import 'package:mailing_system/AppViews/profile_screen.dart';
 import 'package:mailing_system/AppViews/register_screen.dart';
 import 'package:mailing_system/AppViews/sendmessage_screen.dart';
 import 'package:mailing_system/AppViews/splash_screen.dart';
+import 'package:mailing_system/SharedMaterial/globals.dart';
+import 'SharedMaterial/globals.dart';
 
 import 'dbHelper.dart';
 
@@ -24,9 +26,6 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-<<<<<<< HEAD
-      home: LoginScreen(),
-=======
       home: Splash(),
       routes: {
         'contacts': (context) => const Contacts(),
@@ -38,7 +37,6 @@ class MyApp extends StatelessWidget {
         'register': (context) => RegisterScreen(),
         'mail': (context) => EmailScreen2(),
       },
->>>>>>> fa82aa939f709acf4c013dec25de33072c3a5b7b
     );
   }
 }

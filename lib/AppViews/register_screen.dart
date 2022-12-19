@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:mailing_system/SharedMaterial/globals.dart';
 import 'package:mailing_system/SharedMaterial/shared_styles.dart';
 import 'package:mailing_system/SharedMaterial/shared_widgets.dart';
 
@@ -114,7 +115,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       if ( fname.text != "" || lname.text != "" || email.text != "" || pass.text != "" || phone.text != "" || dob.text != "") {
                         helper.insertData(
                             "INSERT INTO Users(fname,lname,dob,email,password,phonenum) VALUES('${fname.text}','${lname.text}','${dob.text}','${email.text}','${pass.text}','${phone.text}')");
-
+                        globalVariables.readData();
                         const regist_Success = SnackBar(
                           content: Text('Account Created Successfully !'),
                           backgroundColor: Colors.green,
@@ -122,7 +123,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ScaffoldMessenger.of(context).showSnackBar(regist_Success);
                         Navigator.pushNamed(context, 'inbox');
 
-                        //navigate lel bernameg nafso (inbox page) HAZEM
+                       
                       }
                       else {
                         const errorMessage = SnackBar(
