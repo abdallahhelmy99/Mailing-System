@@ -1,4 +1,3 @@
-// ignore_for_file: file_names, unnecessary_new, prefer_final_fields, unused_element, non_constant_identifier_names
 
 class User {
   String? fname;
@@ -9,7 +8,23 @@ class User {
   String? password;
   List<User>? contacts;
 
-  User({required this.fname,required this.lname,required this.phoneNo,required this.dob,required this.email,required this.password,})
+  User({
+    required this.fname,
+    required this.lname,
+    required this.phoneNo,
+    required this.dob,
+    required this.email,
+    required this.password,
+  });
+
+  User.fromMap(Map<dynamic, dynamic> db) {
+    this.fname = db['fname'];
+    this.lname = db['lname'];
+    this.phoneNo = db['phoneNo'];
+    this.dob = db['dob'];
+    this.email = db['email'];
+    this.password = db['password'];
+  }
 
   Map<String, dynamic> toMap() {
     return {
@@ -22,10 +37,9 @@ class User {
       //'contacts': contacts,
     };
   }
+
   @override
   String toString() {
     return 'User{fname: $fname, lname: $lname, phoneNo: $phoneNo, dob: $dob, email: $email, password: $password }';
   }
-
-
 }

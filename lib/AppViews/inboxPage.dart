@@ -37,7 +37,7 @@ class _inboxPageState extends State<inboxPage> {
             <Widget>[
               IconButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, "LoginScreen");
+                    Navigator.pushNamed(context, "login");
                   },
                   icon: Icon(
                     Icons.logout_outlined,
@@ -64,7 +64,9 @@ class _inboxPageState extends State<inboxPage> {
                   backgroundColor: Color.fromARGB(255, 239, 239, 239),
                   child: IconButton(
                     icon: Icon(color: Colors.transparent, Icons.person),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(context, 'profile');
+                    },
                   )),
             )),
         body: Column(

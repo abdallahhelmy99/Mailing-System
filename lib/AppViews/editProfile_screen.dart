@@ -11,18 +11,22 @@ class EditProfileScreen extends StatefulWidget {
 }
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
-  SharedWidgets appBarObj=SharedWidgets();
+  SharedWidgets appBarObj = SharedWidgets();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBodyBehindAppBar: false,
-        appBar:appBarObj.appBar(100,Text("Profile", style: SharedFonts.primaryStyleStyle),null,IconButton(
-            color: Colors.black,
-            icon: const Icon(LineAwesomeIcons.angle_left),
-            onPressed: () {
-              Navigator.pushNamed(context, 'profile');
-            },
-          )) ,
+        extendBodyBehindAppBar: false,
+        appBar: appBarObj.appBar(
+            100,
+            Text("Profile", style: SharedFonts.primaryStyleStyle),
+            null,
+            IconButton(
+              color: Colors.black,
+              icon: const Icon(LineAwesomeIcons.angle_left),
+              onPressed: () {
+                Navigator.pushNamed(context, 'profile');
+              },
+            )),
         body: SingleChildScrollView(
           child: Container(
             padding: const EdgeInsets.all(8.0),
@@ -108,6 +112,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       height: 50,
                       child: ElevatedButton(
                         onPressed: () {
+                          Navigator.pushNamed(context, 'profile');
                         },
                         style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.black,
@@ -119,7 +124,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 20,)
+                    const SizedBox(
+                      height: 20,
+                    )
                   ],
                 ))
               ],

@@ -121,6 +121,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           content: Text('Account Created Successfully !'),
                         );
                         ScaffoldMessenger.of(context).showSnackBar(regist_Success);
+                        Navigator.pushNamed(context, 'inbox');
 
                         //navigate lel bernameg nafso (inbox page) HAZEM
                       }

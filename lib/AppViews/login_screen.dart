@@ -74,7 +74,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     width: double.infinity,
                     child: MaterialButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, ("Inboxpage"));
+                        Navigator.pushNamed(context, ("inbox"));
                       },
                       child: const Text(
                         'Login',
@@ -93,7 +93,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     width: double.infinity,
                     child: MaterialButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, "RegisterScreen");
+                        Navigator.pushNamed(context, "register");
                       },
                       child: const Text(
                         'Don\'t have an account ? Register ',
