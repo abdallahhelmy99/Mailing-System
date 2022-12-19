@@ -111,14 +111,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   child: MaterialButton(
                     onPressed: () {
                     setState((){
-                      if ( fname.text != "" && lname.text != "" && email.text != "" && pass.text != "" && phone.text != "" && dob.text != "") {
+                      if ( fname.text != "" || lname.text != "" || email.text != "" || pass.text != "" || phone.text != "" || dob.text != "") {
                         helper.insertData(
-                            "INSERT INTO Users(fname,lname,dob,email,password,phonenum) VALUES('${fname
-                                .text}','${lname.text}','${email.text}','${pass
-                                .text}','${phone.text}','${dob.text}')");
+                            "INSERT INTO Users(fname,lname,dob,email,password,phonenum) VALUES('${fname.text}','${lname.text}','${dob.text}','${email.text}','${pass.text}','${phone.text}')");
 
                         const regist_Success = SnackBar(
                           content: Text('Account Created Successfully !'),
+                          backgroundColor: Colors.green,
                         );
                         ScaffoldMessenger.of(context).showSnackBar(regist_Success);
 
@@ -126,7 +125,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       }
                       else {
                         const errorMessage = SnackBar(
-                          content: Text('Please Fill All Fields And Try Again !'),
+                          content: Text('Please Fill All Fields And Try Again !', style: TextStyle(color: Colors.white)),
+                          backgroundColor: Colors.red,
                         );
                         ScaffoldMessenger.of(context).showSnackBar(errorMessage);
                       }
