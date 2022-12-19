@@ -120,6 +120,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           backgroundColor: Colors.green,
                         );
                         ScaffoldMessenger.of(context).showSnackBar(regist_Success);
+                        Navigator.pushNamed(context, 'inbox');
 
                         //navigate lel bernameg nafso (inbox page) HAZEM
                       }

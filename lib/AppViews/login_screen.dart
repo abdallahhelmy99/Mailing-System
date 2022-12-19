@@ -133,6 +133,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                         }
                       });
+<<<<<<< HEAD
                       //Navigator.pushNamed(context, "RegisterScreen");
                     },
                     child: const Text(
@@ -144,6 +145,58 @@ class _LoginScreenState extends State<LoginScreen> {
               ],
             )
           ],
+=======
+                    }, 
+                    icon:Icon(isObsecure == true ? Icons.visibility_rounded : Icons.visibility_off  )  ),
+                    labelText: 'Password',
+                    prefixIcon: const Icon(Icons.lock)),
+              ),
+              const SizedBox(
+                height: 80,
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Theme.of(context).accentColor,
+                    ),
+                    width: double.infinity,
+                    child: MaterialButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, ("inbox"));
+                      },
+                      child: const Text(
+                        'Login',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Theme.of(context).primaryColor,
+                    ),
+                    width: double.infinity,
+                    child: MaterialButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, "register");
+                      },
+                      child: const Text(
+                        'Don\'t have an account ? Register ',
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    ),
+                  ),
+                ],
+              )
+            ],
+          ),
+>>>>>>> fa82aa939f709acf4c013dec25de33072c3a5b7b
         ),
       ),
     );

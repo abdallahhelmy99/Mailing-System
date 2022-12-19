@@ -30,7 +30,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
           IconButton(
             color: Colors.black,
             icon: const Icon(LineAwesomeIcons.angle_left),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(context, 'inbox');
+            },
           )),
       body: SingleChildScrollView(
         child: Container(
@@ -86,7 +88,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 width: 200,
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, 'editprofile');
+                    Navigator.pushNamed(context, 'editProfile');
                     // Navigator.push(
                     //     context,
                     //     MaterialPageRoute(
@@ -124,7 +126,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       LineAwesomeIcons.alternate_sign_out,
                     )),
                 textColor: Colors.red,
-                onTap: () {},
+                onTap: () {
+                  Navigator.pushNamed(context, 'login');
+                },
               )
             ],
           ),
