@@ -9,14 +9,7 @@ class User {
   String? password;
   List<User>? contacts;
 
-  //Singleton Design Pattern
-  static User _currentUser = new User();
-
-  _User(){}
-
-  static User getCurrentUser(){
-    return _currentUser;
-  }
+  User({required this.fname,required this.lname,required this.phoneNo,required this.dob,required this.email,required this.password,})
 
   Map<String, dynamic> toMap() {
     return {
