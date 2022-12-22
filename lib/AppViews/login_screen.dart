@@ -1,4 +1,7 @@
+// ignore_for_file: unused_local_variable, unnecessary_new
+
 import 'package:flutter/material.dart';
+import 'package:mailing_system/AppViews/inboxPage.dart';
 import 'package:mailing_system/SharedMaterial/shared_widgets.dart';
 import 'package:mailing_system/dbHelper.dart';
 import 'package:mailing_system/SharedMaterial/globals.dart';
@@ -17,7 +20,6 @@ class _LoginScreenState extends State<LoginScreen> {
   bool isObsecure = true;
   TextEditingController mail = new TextEditingController();
   TextEditingController pass = new TextEditingController();
-
 
   @override
   Widget build(BuildContext context) {
@@ -61,12 +63,15 @@ class _LoginScreenState extends State<LoginScreen> {
                 obscureText: isObsecure,
                 keyboardType: TextInputType.visiblePassword,
                 decoration: InputDecoration(
-                    suffixIcon:IconButton(onPressed: (){
-                      setState(() {
-                        isObsecure=!isObsecure;
-                      });
-                    }, 
-                    icon:Icon(isObsecure == true ? Icons.visibility_rounded : Icons.visibility_off  )  ),
+                    suffixIcon: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            isObsecure = !isObsecure;
+                          });
+                        },
+                        icon: Icon(isObsecure == true
+                            ? Icons.visibility_rounded
+                            : Icons.visibility_off)),
                     labelText: 'Password',
                     prefixIcon: const Icon(Icons.lock)),
               ),
@@ -85,35 +90,61 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: MaterialButton(
                       onPressed: () {
                         setState(() {
-                          if ( mail.text != "" || pass.text != "" ){
-                            for ( int i = 0; i < globalVariables.Users!.length; i++){
-                              if ( mail.text == globalVariables.Users![i].email && pass.text == globalVariables.Users![i].password ){
+                          if (mail.text != "" || pass.text != "") {
+                            for (int i = 0;
+                                i < globalVariables.Users!.length;
+                                i++) {
+                              if (mail.text ==globalVariables.Users![i].email &&pass.text ==globalVariables.Users![i].password) {
+                                User currentUser = new User(
+                                    fname: globalVariables.Users?[i].fname,
+                                    lname: globalVariables.Users?[i].lname,
+                                    phoneNo: globalVariables.Users?[i].phoneNo,
+                                    dob: globalVariables.Users?[i].dob,
+                                    email: globalVariables.Users?[i].email,
+                                    password:globalVariables.Users?[i].password);
+                                        
                                 const loginGreeting = SnackBar(
                                   content: Text('Login Successfull !'),
                                   backgroundColor: Colors.green,
                                 );
-                                ScaffoldMessenger.of(context).showSnackBar(loginGreeting);
-                                Navigator.pushNamed(context, "inbox");
-                              }
-                              else if ( i == globalVariables.Users!.length){
-                                 const credsError = SnackBar(
-                                  content: Text('Credentials Not Found, Please Try Again !'),
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(loginGreeting);
+                                // Navigator.pushNamed(context, "inbox");
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => inboxPage(user: currentUser),
+                                    ),
+                                      );
+                              } else if (i == globalVariables.Users!.length) {
+                                const credsError = SnackBar(
+                                  content: Text(
+                                      'Credentials Not Found, Please Try Again !'),
                                   backgroundColor: Colors.red,
                                 );
-                                ScaffoldMessenger.of(context).showSnackBar(credsError);
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(credsError);
+                              } else {
+                                const credsError = SnackBar(
+                                  content: Text(
+                                      'Credentials Not Found, Please Try Again !'),
+                                  backgroundColor: Colors.red,
+                                );
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(credsError);
                               }
                             }
-                          }
-                          else{
+                          } else {
                             const blankError = SnackBar(
-                              content: Text('Please Fill Email and Password Fields !'),
+                              content: Text(
+                                  'Please Fill Email and Password Fields !'),
                               backgroundColor: Colors.red,
                             );
-                            ScaffoldMessenger.of(context).showSnackBar(blankError);
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(blankError);
                           }
-                        }
-                        );
-                        },
+                        });
+                      },
                       child: const Text(
                         'Login',
                         style: TextStyle(color: Colors.white),

@@ -8,21 +8,32 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:badges/badges.dart' as bd;
 import 'package:anim_search_bar/anim_search_bar.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:mailing_system/AppViews/profile_screen.dart';
 import 'package:mailing_system/Classes/User.dart';
 
 
 import '../SharedMaterial/shared_widgets.dart';
 
 class inboxPage extends StatefulWidget {
+  User user;
+
+   inboxPage({super.key, required this.user});
+   
   @override
   State<inboxPage> createState() => _inboxPageState();
 }
 
 class _inboxPageState extends State<inboxPage> {
+  User? user;
+    @override
+  void initState() {
+    super.initState();
+    user = widget.user;
+  }
   var size, height, width;
   TextEditingController text = new TextEditingController();
   var selectedfolder = 'Inbox';
-
+  
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +50,7 @@ class _inboxPageState extends State<inboxPage> {
             <Widget>[
               IconButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, "login");
+                    Navigator.pushNamedAndRemoveUntil(context, "login", (route) => false);
                   },
                   icon: Icon(
                     Icons.logout_outlined,
@@ -67,7 +78,13 @@ class _inboxPageState extends State<inboxPage> {
                   child: IconButton(
                     icon: Icon(color: Colors.transparent, Icons.person),
                     onPressed: () {
-                      Navigator.pushNamed(context, 'profile');
+                      // Navigator.pushNamed(context, 'profile');
+                                                      Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                        builder: (context) =>ProfileScreen(user: user!),
+                                                            ),
+                                                              );
                     },
                   )),
             )),

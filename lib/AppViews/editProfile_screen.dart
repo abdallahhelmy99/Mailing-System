@@ -1,16 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:mailing_system/SharedMaterial/shared_widgets.dart';
+import '../Classes/User.dart';
 import '../SharedMaterial/shared_styles.dart';
 
 class EditProfileScreen extends StatefulWidget {
-  const EditProfileScreen({super.key});
+  User user;
+  EditProfileScreen({super.key,required this.user});
 
   @override
   State<EditProfileScreen> createState() => _EditProfileScreenState();
 }
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
+  User? user;
+    @override
+  void initState() {
+    super.initState();
+    user = widget.user;
+  }
   SharedWidgets appBarObj = SharedWidgets();
   @override
   Widget build(BuildContext context) {
@@ -24,7 +32,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               color: Colors.black,
               icon: const Icon(LineAwesomeIcons.angle_left),
               onPressed: () {
-                Navigator.pushNamed(context, 'profile');
+                Navigator.pop(context);
               },
             )),
         body: SingleChildScrollView(
@@ -69,41 +77,41 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     child: Column(
                   children: [
                     TextFieldBuilder('First Name', TextInputType.name,
-                        const Icon(Icons.abc)),
+                        const Icon(Icons.abc), "${user!.fname}" ),
                     const SizedBox(
                       height: 10,
                     ),
                     TextFieldBuilder(
-                        'Last Name', TextInputType.name, const Icon(Icons.abc)),
+                        'Last Name', TextInputType.name, const Icon(Icons.abc), "${user!.lname}"),
                     const SizedBox(
                       height: 10,
                     ),
                     TextFieldBuilder(
                         'Email Address',
                         TextInputType.emailAddress,
-                        const Icon(Icons.alternate_email)),
+                        const Icon(Icons.alternate_email), "${user!.email}"),
                     const SizedBox(
                       height: 10,
                     ),
                     TextFieldBuilder('Phone Number', TextInputType.phone,
-                        const Icon(Icons.phone)),
+                        const Icon(Icons.phone), "${user!.phoneNo}"),
                     const SizedBox(
                       height: 10,
                     ),
                     TextFieldBuilder('Password', TextInputType.visiblePassword,
-                        const Icon(Icons.password)),
+                        const Icon(Icons.password), "${user!.password}"),
                     const SizedBox(
                       height: 10,
                     ),
                     TextFieldBuilder(
                         'Confirm Password',
                         TextInputType.visiblePassword,
-                        const Icon(Icons.password)),
+                        const Icon(Icons.password),"${user!.password}"),
                     const SizedBox(
                       height: 10,
                     ),
                     TextFieldBuilder('Date of birth', TextInputType.datetime,
-                        const Icon(Icons.date_range)),
+                        const Icon(Icons.date_range), "${user!.dob}"),
                     const SizedBox(
                       height: 40,
                     ),
@@ -136,7 +144,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   }
 }
 
-Widget TextFieldBuilder(String labeltxt, TextInputType x, Icon s) {
+Widget TextFieldBuilder(String labeltxt, TextInputType x, Icon s,String l) {
   return Padding(
     padding: const EdgeInsets.all(8.0),
     child: Container(
@@ -144,6 +152,7 @@ Widget TextFieldBuilder(String labeltxt, TextInputType x, Icon s) {
       decoration: BoxDecoration(
           color: Colors.grey[350], borderRadius: BorderRadius.circular(20)),
       child: TextFormField(
+        initialValue: l,
         decoration: InputDecoration(
             labelText: labeltxt, border: InputBorder.none, suffixIcon: s),
         keyboardType: x,

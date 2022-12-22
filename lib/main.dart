@@ -29,9 +29,6 @@ class MyApp extends StatelessWidget {
       home: Splash(),
       routes: {
         'contacts': (context) => const Contacts(),
-        'profile': (context) => const ProfileScreen(),
-        'editProfile': (context) => const EditProfileScreen(),
-        'inbox': (context) => inboxPage(),
         'sendMessage': (context) => const SendMessage(),
         'login': (context) => const LoginScreen(),
         'register': (context) => RegisterScreen(),

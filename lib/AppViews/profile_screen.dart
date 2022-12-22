@@ -1,16 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
+import 'package:mailing_system/AppViews/editProfile_screen.dart';
+import 'package:mailing_system/Classes/User.dart';
 import 'package:mailing_system/SharedMaterial/shared_colors.dart';
 import 'package:mailing_system/SharedMaterial/shared_styles.dart';
 import 'package:mailing_system/SharedMaterial/shared_widgets.dart';
 
 class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({super.key});
+  User user;
+   ProfileScreen({super.key,required this.user});
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+    User? user;
+    @override
+  void initState() {
+    super.initState();
+    user = widget.user;
+  }
   SharedWidgets appBarObj = SharedWidgets();
   @override
   Widget build(BuildContext context) {
@@ -31,7 +40,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             color: Colors.black,
             icon: const Icon(LineAwesomeIcons.angle_left),
             onPressed: () {
-              Navigator.pushNamed(context, 'inbox');
+              Navigator.pop(context);
             },
           )),
       body: SingleChildScrollView(
@@ -73,14 +82,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
               const SizedBox(height: 10),
               Text(
-                "Username",
+                "${user!.fname}",
                 style: SharedFonts.primaryStyleStyle,
               ),
               const SizedBox(
                 height: 10,
               ),
               Text(
-                "abcd@gmail.com",
+                "${user!.email}",
                 style: SharedFonts.smallStyle,
               ),
               const SizedBox(height: 30),
@@ -88,11 +97,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 width: 200,
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, 'editProfile');
-                    // Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //         builder: (context) => const EditProfileScreen()));
+                    
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => EditProfileScreen(user: user!)));
                   },
                   style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.black,
