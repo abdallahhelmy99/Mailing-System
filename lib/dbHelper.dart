@@ -19,13 +19,12 @@ class dbHelper {
   }
 
   _onCR(Database db, int v) async {
-    await db.execute('CREATE TABLE "Users" (userID INTEGER PRIMARY KEY AUTOINCREMENT, fname TEXT NOT NULL, lname TEXT NOT NULL,  dob DATETIME, email TEXT NOT NULL, password TEXT NOT NULL, phonenum TEXT NOT NULL)');
+    await db.execute('CREATE TABLE "Users" (userID INTEGER PRIMARY KEY AUTOINCREMENT, fname TEXT NOT NULL, lname TEXT NOT NULL,  dob DATETIME, email TEXT NOT NULL, password TEXT NOT NULL, phonenum TEXT NOT NULL, workExp TEXT, education TEXT)');
+    await db.execute('CREATE TABLE "Mail" (emailID INTEGER PRIMARY KEY AUTOINCREMENT, subject TEXT NOT NULL, body TEXT NOT NULL, trash Boolean, important Boolean , spam Boolean , isRead Boolean, date DATETIME, senderID INTEGER NOT NULL, receiverID INTEGER NOT NULL)');
     //await db.execute('CREATE TABLE "Contacts" (contact_ID INTEGER PRIMARY KEY AUTOINCREMENT,contactname TEXT NOT NULL , contactemail TEXT NOT NULL,  phonenum TEXT NOT NULL, relation TEXT NOT NULL )');
     //await db.execute('CREATE TABLE "CONTACT_USER_RELATION" (userID INTEGER FOREIGN KEY AUTOINCREMENT, contact_ID INTEGER FOREIGN KEY AUTOINCREMENT,)');
-    // await db.execute('CREATE TABLE "Mail" (emailID INTEGER PRIMARY KEY AUTOINCREMENT, subject TEXT NOT NULL, body TEXT NOT NULL, trash Boolean, important Boolean , spam Boolean , isRead Boolean, date DATETIME)');
     // await db.execute('CREATE TABLE "GROUP"(groupname TEXT NOT NULL, userID INTEGER AUTOINCREMENT, groupID INTEGER PRIMARY KEY AUTOINCREMENT)');
     // await db.execute('CREATE TABLE "GroupContent"(userID INTEGER AUTOINCREMENT, groupID INTEGER PRIMARY KEY AUTOINCREMENT, groupname TEXT NOT NULL, email TEXT NOT NULL, emailID INTEGER AUTOINCREMENT )');
-
     // Autoincrement lazem tkon m3 primary key , foreign key feha mashakel
   }
 
@@ -42,6 +41,7 @@ class dbHelper {
         await mydb!.rawQuery("SELECT * FROM Users");
     return List.generate(response.length, (i) {
       return User(
+        userID: response[i]['userID'],
         fname: response[i]['fname'],
         lname: response[i]['lname'],
         phoneNo: response[i]['phonenum'],

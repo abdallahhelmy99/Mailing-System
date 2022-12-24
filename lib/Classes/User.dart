@@ -1,5 +1,6 @@
 
 class User {
+  String? userID;
   String? fname;
   String? lname;
   String? phoneNo;
@@ -9,6 +10,7 @@ class User {
   List<User>? contacts;
 
   User({
+      required this.userID,
       required this.fname,
       required this.lname,
       required this.phoneNo,
@@ -19,6 +21,7 @@ class User {
 
   Map<String, dynamic> toMap() {
     return {
+      'userID': userID,
       'fname': fname,
       'lname': lname,
       'phonenum': phoneNo,
