@@ -1,5 +1,4 @@
 // ignore_for_file: unused_local_variable, unnecessary_new
-
 import 'package:flutter/material.dart';
 import 'package:mailing_system/AppViews/inboxPage.dart';
 import 'package:mailing_system/SharedMaterial/shared_widgets.dart';
@@ -32,6 +31,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    globalVariables.readData();
     return Scaffold(
       appBar: appBarObj.appBar(
         150,
