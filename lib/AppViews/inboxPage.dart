@@ -10,26 +10,20 @@ import 'package:anim_search_bar/anim_search_bar.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:mailing_system/AppViews/profile_screen.dart';
 import 'package:mailing_system/Classes/User.dart';
+import 'package:mailing_system/SharedMaterial/globals.dart';
 
 
 import '../SharedMaterial/shared_widgets.dart';
 
 class inboxPage extends StatefulWidget {
-  User user;
-
-   inboxPage({super.key, required this.user});
+   inboxPage({super.key});
    
   @override
   State<inboxPage> createState() => _inboxPageState();
 }
 
 class _inboxPageState extends State<inboxPage> {
-  User? user;
-    @override
-  void initState() {
-    super.initState();
-    user = widget.user;
-  }
+  
   var size, height, width;
   TextEditingController text = new TextEditingController();
   var selectedfolder = 'Inbox';
@@ -50,7 +44,8 @@ class _inboxPageState extends State<inboxPage> {
             <Widget>[
               IconButton(
                   onPressed: () {
-                    Navigator.pushNamedAndRemoveUntil(context, "login", (route) => false);
+                    Navigator.pop(context);
+                    globalVariables.dispose();
                   },
                   icon: Icon(
                     Icons.logout_outlined,
@@ -78,13 +73,7 @@ class _inboxPageState extends State<inboxPage> {
                   child: IconButton(
                     icon: Icon(color: Colors.transparent, Icons.person),
                     onPressed: () {
-                      // Navigator.pushNamed(context, 'profile');
-                                                      Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                        builder: (context) =>ProfileScreen(user: user!),
-                                                            ),
-                                                              );
+                      Navigator.pushNamed(context, 'profile');
                     },
                   )),
             )),

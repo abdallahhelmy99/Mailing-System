@@ -21,7 +21,7 @@ class User {
     return {
       'fname': fname,
       'lname': lname,
-      'phoneNo': phoneNo,
+      'phonenum': phoneNo,
       'dob': dob,
       'email': email,
       'password': password,

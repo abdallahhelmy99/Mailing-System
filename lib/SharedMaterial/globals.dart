@@ -5,7 +5,13 @@ import '../Classes/User.dart';
 class globalVariables {
   static dbHelper helper = dbHelper();
   static List<User>? Users;
-  
+  static User? currentUser;
+
+
+  static void dispose() {
+    currentUser = null;
+  }
+
 
   static void readData() async{
     Users = await helper.readUsers();

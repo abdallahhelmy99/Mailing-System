@@ -33,6 +33,9 @@ class MyApp extends StatelessWidget {
         'login': (context) => const LoginScreen(),
         'register': (context) => RegisterScreen(),
         'mail': (context) => EmailScreen2(),
+        'inbox': (context) => inboxPage(),
+        'editProfile': (context) => EditProfileScreen(),
+        'profile': (context) => ProfileScreen(),
       },
     );
   }

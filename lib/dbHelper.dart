@@ -44,15 +44,15 @@ class dbHelper {
       return User(
         fname: response[i]['fname'],
         lname: response[i]['lname'],
-        phoneNo: response[i]['phoneNo'],
+        phoneNo: response[i]['phonenum'],
         dob: response[i]['dob'],
         email: response[i]['email'],
         password: response[i]['password'],
       );
     });
   }
-
-  Future<List<Map>> readUnDoneTasks() async {
+  
+    Future<List<Map>> readUnDoneTasks() async {
     Database? mydb = await db;
     List<Map> response =
         await mydb!.rawQuery("SELECT * FROM Users");

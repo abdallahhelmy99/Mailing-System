@@ -2,24 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:mailing_system/AppViews/editProfile_screen.dart';
 import 'package:mailing_system/Classes/User.dart';
+import 'package:mailing_system/SharedMaterial/globals.dart';
 import 'package:mailing_system/SharedMaterial/shared_colors.dart';
 import 'package:mailing_system/SharedMaterial/shared_styles.dart';
 import 'package:mailing_system/SharedMaterial/shared_widgets.dart';
 
 class ProfileScreen extends StatefulWidget {
-  User user;
-   ProfileScreen({super.key,required this.user});
+   ProfileScreen({super.key});
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-    User? user;
-    @override
-  void initState() {
-    super.initState();
-    user = widget.user;
-  }
   SharedWidgets appBarObj = SharedWidgets();
   @override
   Widget build(BuildContext context) {
@@ -82,14 +76,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
               const SizedBox(height: 10),
               Text(
-                "${user!.fname}",
+                "${globalVariables.currentUser!.fname} ${globalVariables.currentUser!.lname}",
                 style: SharedFonts.primaryStyleStyle,
               ),
               const SizedBox(
                 height: 10,
               ),
               Text(
-                "${user!.email}",
+                "",
                 style: SharedFonts.smallStyle,
               ),
               const SizedBox(height: 30),
@@ -97,11 +91,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 width: 200,
                 child: ElevatedButton(
                   onPressed: () {
-                    
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => EditProfileScreen(user: user!)));
+                    Navigator.pushNamed(context, 'editProfile');
                   },
                   style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.black,

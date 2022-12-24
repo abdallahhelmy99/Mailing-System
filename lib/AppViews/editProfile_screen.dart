@@ -3,22 +3,16 @@ import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:mailing_system/SharedMaterial/shared_widgets.dart';
 import '../Classes/User.dart';
 import '../SharedMaterial/shared_styles.dart';
+import 'package:mailing_system/SharedMaterial/globals.dart';
 
 class EditProfileScreen extends StatefulWidget {
-  User user;
-  EditProfileScreen({super.key,required this.user});
+  EditProfileScreen({super.key});
 
   @override
   State<EditProfileScreen> createState() => _EditProfileScreenState();
 }
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
-  User? user;
-    @override
-  void initState() {
-    super.initState();
-    user = widget.user;
-  }
   SharedWidgets appBarObj = SharedWidgets();
   @override
   Widget build(BuildContext context) {
@@ -77,41 +71,41 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     child: Column(
                   children: [
                     TextFieldBuilder('First Name', TextInputType.name,
-                        const Icon(Icons.abc), "${user!.fname}" ),
+                        const Icon(Icons.abc),"${globalVariables.currentUser!.fname}"),
                     const SizedBox(
                       height: 10,
                     ),
                     TextFieldBuilder(
-                        'Last Name', TextInputType.name, const Icon(Icons.abc), "${user!.lname}"),
+                        'Last Name', TextInputType.name, const Icon(Icons.abc), "${globalVariables.currentUser!.lname}"),
                     const SizedBox(
                       height: 10,
                     ),
                     TextFieldBuilder(
                         'Email Address',
                         TextInputType.emailAddress,
-                        const Icon(Icons.alternate_email), "${user!.email}"),
+                        const Icon(Icons.alternate_email), "${globalVariables.currentUser!.email}"),
                     const SizedBox(
                       height: 10,
                     ),
                     TextFieldBuilder('Phone Number', TextInputType.phone,
-                        const Icon(Icons.phone), "${user!.phoneNo}"),
+                        const Icon(Icons.phone),  "${globalVariables.currentUser!.phoneNo}"),
                     const SizedBox(
                       height: 10,
                     ),
                     TextFieldBuilder('Password', TextInputType.visiblePassword,
-                        const Icon(Icons.password), "${user!.password}"),
+                        const Icon(Icons.password), "${globalVariables.currentUser!.password}"),
                     const SizedBox(
                       height: 10,
                     ),
                     TextFieldBuilder(
                         'Confirm Password',
                         TextInputType.visiblePassword,
-                        const Icon(Icons.password),"${user!.password}"),
+                        const Icon(Icons.password),"${globalVariables.currentUser!.password}"),
                     const SizedBox(
                       height: 10,
                     ),
                     TextFieldBuilder('Date of birth', TextInputType.datetime,
-                        const Icon(Icons.date_range), "${user!.dob}"),
+                        const Icon(Icons.date_range), "${globalVariables.currentUser!.dob}"),
                     const SizedBox(
                       height: 40,
                     ),

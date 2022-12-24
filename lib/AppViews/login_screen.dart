@@ -1,5 +1,5 @@
 // ignore_for_file: unused_local_variable, unnecessary_new
-
+ 
 import 'package:flutter/material.dart';
 import 'package:mailing_system/AppViews/inboxPage.dart';
 import 'package:mailing_system/SharedMaterial/shared_widgets.dart';
@@ -18,9 +18,11 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   SharedWidgets appBarObj = SharedWidgets();
   bool isObsecure = true;
-  TextEditingController mail = new TextEditingController();
-  TextEditingController pass = new TextEditingController();
-
+  TextEditingController mail =  TextEditingController();
+  TextEditingController pass =  TextEditingController();
+  bool isValid = false;
+  
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -89,52 +91,29 @@ class _LoginScreenState extends State<LoginScreen> {
                     width: double.infinity,
                     child: MaterialButton(
                       onPressed: () {
-                        setState(() {
+                       
                           if (mail.text != "" || pass.text != "") {
-                            for (int i = 0;
-                                i < globalVariables.Users!.length;
-                                i++) {
-                              if (mail.text ==globalVariables.Users![i].email &&pass.text ==globalVariables.Users![i].password) {
-                                User currentUser = new User(
-                                    fname: globalVariables.Users?[i].fname,
-                                    lname: globalVariables.Users?[i].lname,
-                                    phoneNo: globalVariables.Users?[i].phoneNo,
-                                    dob: globalVariables.Users?[i].dob,
-                                    email: globalVariables.Users?[i].email,
-                                    password:globalVariables.Users?[i].password);
-                                        
-                                const loginGreeting = SnackBar(
-                                  content: Text('Login Successfull !'),
-                                  backgroundColor: Colors.green,
-                                );
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(loginGreeting);
-                                // Navigator.pushNamed(context, "inbox");
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => inboxPage(user: currentUser),
-                                    ),
-                                      );
-                              } else if (i == globalVariables.Users!.length) {
-                                const credsError = SnackBar(
-                                  content: Text(
-                                      'Credentials Not Found, Please Try Again !'),
-                                  backgroundColor: Colors.red,
-                                );
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(credsError);
-                              } else {
-                                const credsError = SnackBar(
-                                  content: Text(
-                                      'Credentials Not Found, Please Try Again !'),
-                                  backgroundColor: Colors.red,
-                                );
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(credsError);
-                              }
-                            }
-                          } else {
+                            for (int i = 0; i < globalVariables.Users!.length; i++) {
+                              if (mail.text == globalVariables.Users![i].email && pass.text == globalVariables.Users![i].password) {
+                                
+                                globalVariables.currentUser = new User(fname: globalVariables.Users?[i].fname, lname: globalVariables.Users?[i].lname, phoneNo: globalVariables.Users?[i].phoneNo, dob: globalVariables.Users?[i].dob, email: globalVariables.Users?[i].email, password:globalVariables.Users?[i].password
+                                );        
+                                mail.clear();
+                                pass.clear();
+                                setState(() {
+                                  isValid = true;
+                                });
+                                break;
+                              } 
+                              
+                               else {
+                                setState(() {
+                                  isValid = false;
+                                });
+                               } 
+                            } //for loop
+                          }
+                          else {
                             const blankError = SnackBar(
                               content: Text(
                                   'Please Fill Email and Password Fields !'),
@@ -142,8 +121,29 @@ class _LoginScreenState extends State<LoginScreen> {
                             );
                             ScaffoldMessenger.of(context)
                                 .showSnackBar(blankError);
-                          }
-                        });
+                          } // if kbera
+                      
+                      
+
+                        if ( isValid && mail.text != "" && pass.text != "" ){
+                          const loginGreeting = SnackBar(
+                                  content: Text('Login Successfull !'),
+                                  backgroundColor: Colors.green,
+                                );
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(loginGreeting);
+                          Navigator.pushNamed(context, 'inbox');
+                               
+                        }
+                        else {
+                                const credsError = SnackBar(
+                                  content: Text(
+                                      'Credentials Not Found, Please Try Again !'),
+                                  backgroundColor: Colors.red,
+                                );
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(credsError);
+                        }//I
                       },
                       child: const Text(
                         'Login',
