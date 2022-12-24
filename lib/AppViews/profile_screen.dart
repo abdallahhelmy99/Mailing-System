@@ -83,7 +83,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 height: 10,
               ),
               Text(
-                "",
+                "${globalVariables.currentUser!.email}",
                 style: SharedFonts.smallStyle,
               ),
               const SizedBox(height: 30),
