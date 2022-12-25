@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:mailing_system/Classes/Mail.dart';
+import 'package:mailing_system/SharedMaterial/globals.dart';
 import 'package:mailing_system/SharedMaterial/shared_styles.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:mailing_system/SharedMaterial/shared_widgets.dart';
+import 'package:mailing_system/dbHelper.dart';
 
 class SendMessage extends StatefulWidget {
   const SendMessage({super.key});
@@ -11,12 +15,18 @@ class SendMessage extends StatefulWidget {
 
 class _SendMessageState extends State<SendMessage> {
   SharedWidgets appBar = SharedWidgets();
-  String curretnLoggedUserMail = "123@gmail.com";
+  dbHelper dbObj = dbHelper();
+  String? curretnLoggedUserMail = globalVariables.currentUser!.email;
+  TextEditingController toField = TextEditingController();
   TextEditingController subjectFieldController = TextEditingController();
-  TextEditingController receiverFieldController = TextEditingController();
   TextEditingController msgBodyController = TextEditingController();
   FilePickerResult? pickVariable;
   bool removeAttach = true;
+  bool toIsEmpty = true;
+  bool subjIsEmpty = true;
+  bool msgBodyIsEmpty = true;
+  String curretnDate = DateTime.now().toString().substring(0, 19);
+  int recieverUserID=13883;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,20 +36,20 @@ class _SendMessageState extends State<SendMessage> {
         Column(
           children: [
             Padding(
-              padding: const EdgeInsets.only(right: 120.0),
+              padding: const EdgeInsets.only(right: 72.0),
               child: Text("New Message", style: SharedFonts.thirdStyle),
             ),
             Row(
               children: [
                 const Padding(
                   padding: EdgeInsets.only(top: 15),
-                  child:
-                      Icon(Icons.cloud_circle_sharp, color: Colors.lightBlue, size: 30),
+                  child: Icon(Icons.cloud_circle_sharp,
+                      color: Colors.lightBlue, size: 30),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 15.0, left: 10),
                   child: Text(
-                    curretnLoggedUserMail,
+                    curretnLoggedUserMail!,
                     style: SharedFonts.smallStyle,
                   ),
                 )
@@ -51,7 +61,43 @@ class _SendMessageState extends State<SendMessage> {
           Padding(
             padding: const EdgeInsets.only(right: 15.0),
             child: IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  if (toField.text != "" &&
+                      subjectFieldController.text != "" &&
+                      msgBodyController.text != "") {
+                    dbObj.insertData(
+                        "Insert into Mail(subject,body,trash,important,spam,isRead,date,senderID,receiverID) values('${subjectFieldController.text}','${msgBodyController.text}','${false}','${false}','${false}','${false}','${curretnDate}','${globalVariables.currentUser!.userID}','${recieverUserID}')");
+                   var snackBar = const SnackBar(
+                      content: Text('Message sent !!'),
+                      backgroundColor: Colors.green,
+                      duration: Duration(seconds: 2),
+                      elevation: 10,
+                    );
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    setState(() {
+                      toIsEmpty = false;
+                      subjIsEmpty = false;
+                      msgBodyIsEmpty = false;
+                      Navigator.pop(context);
+                    });
+                  } else if (toIsEmpty == true ||
+                      subjIsEmpty == true ||
+                      msgBodyIsEmpty == true) {
+                    var snackBar = const SnackBar(
+                      content: Text('Please All fields !'),
+                      backgroundColor: Colors.red,
+                      duration: Duration(seconds: 3),
+                      elevation: 10,
+                    );
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  } else {
+                    setState(() {
+                      toIsEmpty = true;
+                      subjIsEmpty = true;
+                      msgBodyIsEmpty = true;
+                    });
+                  }
+                },
                 icon: const Icon(
                   Icons.send_rounded,
                   size: 40,
@@ -74,13 +120,21 @@ class _SendMessageState extends State<SendMessage> {
                 elevation: 5,
                 child: TextField(
                     cursorColor: Colors.black,
-                    controller: receiverFieldController,
+                    controller: toField,
+                    onSubmitted: (value) {
+                      for (int i = 0; i < globalVariables.Users!.length; i++) {
+                        if (globalVariables.Users![i].email == toField.text) {
+                          recieverUserID = globalVariables.Users![i].userID!;
+                        }
+                      }
+                    },
                     obscureText: false,
                     decoration: InputDecoration(
                         focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
                             borderSide: const BorderSide(
-                                color: Colors.transparent, width: 0)),
+                                color: Color.fromARGB(0, 83, 72, 72),
+                                width: 0)),
                         fillColor: Colors.white,
                         filled: true,
                         enabledBorder: OutlineInputBorder(
@@ -212,7 +266,7 @@ class _SendMessageState extends State<SendMessage> {
                 }),
               ),
             ),
-          )
+          ),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(

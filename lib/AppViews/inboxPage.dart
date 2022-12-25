@@ -36,6 +36,11 @@ class _inboxPageState extends State<inboxPage> {
     width = size.width;
     SharedWidgets appBarObj = SharedWidgets();
     return Scaffold(
+       floatingActionButton:FloatingActionButton(onPressed: (){
+        Navigator.pushNamed(context, 'sendMessage');
+      },
+       child: Icon(Icons.send_rounded),
+       backgroundColor: Colors.black),
         backgroundColor: Color.fromARGB(255, 239, 239, 239),
         //el app bar hena lazmeto en el status bar yb2a nafs loon el theme
         appBar: appBarObj.appBar(
