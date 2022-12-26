@@ -1,4 +1,6 @@
 class Mail {
+  int? recieverID;
+  int? senderID;
   String? emailID;
   String? subject;
   String? body;
@@ -7,13 +9,11 @@ class Mail {
   bool? important;
   bool? spam;
   bool? isRead;
-  int senderID;
-  int receiverID;
-
-
+  bool? isSent;
 
   Mail(
-      {required this.emailID,
+      {
+      required this.emailID,
       required this.subject,
       required this.body,
       required this.date,
@@ -21,8 +21,10 @@ class Mail {
       required this.important,
       required this.spam,
       required this.isRead,
+      required this.recieverID,
       required this.senderID,
-      required this.receiverID});
+      required this.isSent
+      });
 
   Map<String, dynamic> toMap() {
     return {
@@ -35,14 +37,8 @@ class Mail {
       'spam': spam,
       'isRead': isRead,
       'senderID': senderID,
-      'receiverID': receiverID,
+      'receiverID': recieverID,
       //'contacts': contacts,
     };
-  }
-
-  
-  @override
-  String toString() {
-    return 'Mail{emailID: $emailID, subject: $subject, body: $body, date: $date, trash: $trash, important: $important, spam: $spam, isRead: $isRead}';
   }
 }

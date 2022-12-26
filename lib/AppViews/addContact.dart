@@ -26,9 +26,7 @@ class _AddContactsState extends State<AddContacts> {
                 fontFamily: 'Cabin')),
         null,
         BackButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
+          onPressed: () {},
           color: Colors.black,
         ),
       ),
