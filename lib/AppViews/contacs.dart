@@ -29,7 +29,9 @@ class _ContactsState extends State<Contacts> {
                 ),
                 splashRadius: 25),
           ],BackButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pop(context);
+                },
                   color: Colors.black,
                 ),
 ) ,
@@ -47,8 +49,10 @@ class _ContactsState extends State<Contacts> {
           contactsView('Bahgat', 'Hussam', 'Baghhhh@gmail.com'),
         ],
       ),
-      floatingActionButton: const FloatingActionButton(
-          onPressed: null,
+      floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.pushNamed(context, 'addContact');
+          },
           backgroundColor: Colors.black,
           child: Icon(Icons.add)),
     );

@@ -11,6 +11,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:mailing_system/AppViews/profile_screen.dart';
 import 'package:mailing_system/Classes/User.dart';
 import 'package:mailing_system/SharedMaterial/globals.dart';
+import 'package:mailing_system/dbHelper.dart';
 
 
 import '../SharedMaterial/shared_widgets.dart';
@@ -27,6 +28,7 @@ class _inboxPageState extends State<inboxPage> {
   var size, height, width;
   TextEditingController text = new TextEditingController();
   var selectedfolder = 'Inbox';
+  dbHelper helper = dbHelper();
   
 
   @override
@@ -36,6 +38,14 @@ class _inboxPageState extends State<inboxPage> {
     width = size.width;
     SharedWidgets appBarObj = SharedWidgets();
     return Scaffold(
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: Colors.black,
+          onPressed: () {
+            Navigator.pushNamed(context, 'send');
+          
+          },
+          child: Icon(Icons.send),
+        ),
         backgroundColor: Color.fromARGB(255, 239, 239, 239),
         //el app bar hena lazmeto en el status bar yb2a nafs loon el theme
         appBar: appBarObj.appBar(
@@ -43,25 +53,27 @@ class _inboxPageState extends State<inboxPage> {
             null,
             <Widget>[
               IconButton(
+                  onPressed: () {},
+                  icon: Icon(
+                    Icons.delete_outlined, //Trash
+                    color: Colors.black,
+                    size: 25,
+                  ),
+                  splashRadius: 25),
+
+              IconButton(
                   onPressed: () {
                     Navigator.pop(context);
                     globalVariables.dispose();
                   },
                   icon: Icon(
-                    Icons.logout_outlined,
+                    Icons.login_outlined,
                     color: Colors.black,
                     size: 28,
                   ),
                   splashRadius: 25)
               ,
-              IconButton(
-                  onPressed: () {},
-                  icon: Icon(
-                    Icons.edit,
-                    color: Colors.black,
-                    size: 25,
-                  ),
-                  splashRadius: 25)
+              
             ],
             Container(
               alignment: Alignment.centerRight,
@@ -89,7 +101,7 @@ class _inboxPageState extends State<inboxPage> {
               Container(
                   alignment: Alignment.center,
                   child: Text(
-                    "Inbox",
+                    "Inbox", //selectedfolder
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 45, fontWeight: FontWeight.bold),
                   )),
@@ -106,7 +118,7 @@ class _inboxPageState extends State<inboxPage> {
                   Container(
                       alignment: Alignment.center,
                       child: Text(
-                        "10 Unread Messages ",
+                        "Counter " + "Unread Messages", //Hena lazem nafs el counter
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontSize: 16, fontWeight: FontWeight.w400),
@@ -118,61 +130,76 @@ class _inboxPageState extends State<inboxPage> {
               ),
               //El Icons bta3t El folders
               Padding(
-                padding: EdgeInsets.only(left: width / 12),
+                padding: EdgeInsets.only(left: width / 12 - 4),
                 child: Row(
                   children: [
                     CircleAvatar(
                         backgroundColor: Colors.white,
-                        radius: 30,
+                        radius: 25,
                         child: IconButton(
                           icon: Icon(Icons.drafts, color: Colors.black),
                           onPressed: () {},
-                          iconSize: 40,
+                          iconSize: 30,
                         )),
                     SizedBox(
                       width: width / 64,
                     ),
                     CircleAvatar(
                         backgroundColor: Colors.white,
-                        radius: 30,
+                        radius: 25,
                         child: IconButton(
                           icon: Icon(Icons.folder, color: Colors.black),
                           onPressed: () {},
-                          iconSize: 40,
+                          iconSize: 30,
                         )),
                     SizedBox(
                       width: width / 64,
                     ),
                     CircleAvatar(
                         backgroundColor: Colors.white,
-                        radius: 30,
+                        radius: 25,
                         child: IconButton(
                           icon: Icon(Icons.folder_delete, color: Colors.black),
                           onPressed: () {},
-                          iconSize: 40,
+                          iconSize: 30,
                         )),
                     SizedBox(
                       width: width / 64,
                     ),
                     CircleAvatar(
                         backgroundColor: Colors.white,
-                        radius: 30,
+                        radius: 25,
                         child: IconButton(
                           icon: Icon(Icons.folder_special, color: Colors.black),
                           onPressed: () {},
-                          iconSize: 40,
+                          iconSize: 30,
                         )),
                     SizedBox(
                       width: width / 64,
                     ),
-                    CircleAvatar(
+                   CircleAvatar(
                         backgroundColor: Colors.white,
-                        radius: 30,
+                        radius: 25,
+                        child: IconButton(
+                          icon: Icon(Icons.send_rounded, color: Colors.black),
+                          onPressed: () {},
+                          iconSize: 30,
+                        )),
+                    SizedBox(
+                      width: width / 64,
+                    ),
+                     CircleAvatar(
+                        backgroundColor: Colors.white,
+                        radius: 25,
                         child: IconButton(
                           icon: Icon(Icons.contacts, color: Colors.black),
-                          onPressed: () {},
-                          iconSize: 40,
+                          onPressed: () {
+                            Navigator.pushNamed(context, 'contacts');
+                            //helper.insertData('INSERT INTO mail (id,subject,from,to,cc,bcc,attachment,mailBody) VALUES (1,"test","1","1","test","test","test","test")');
+                          },
+                          iconSize: 30,
                         )),
+                    
                   ],
                 ),
               ),
@@ -209,74 +236,116 @@ class _inboxPageState extends State<inboxPage> {
                   )),
               //Cards El Emails Hena
               Expanded(
-                child: ListView.builder(
-                  itemCount: 10,
-                  physics: PageScrollPhysics(),
-                  itemBuilder: (context, index) {
-                    return Stack(
-                      children: [
-                        Container(
-                          padding: EdgeInsets.only(
-                              left: width / 32, bottom: height / 24),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                          ),
-                          height: height / 6,
-                          width: width,
-                          alignment: Alignment.topLeft,
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                                top: height / 32, left: width / 64),
-                            child: bd.Badge(
-                                position:
-                                    bd.BadgePosition.topEnd(top: 5, end: 10),
-                                badgeContent: Icon(
-                                  Icons.circle,
-                                  color: Colors.transparent,
-                                  size: 3,
-                                ),
-                                badgeColor: Colors.blue),
-                          ),
+                  child: FutureBuilder(
+                  future: helper.readMails(),
+                  builder: (context, AsyncSnapshot snapshot) =>  ListView.builder(
+                    itemCount: 10,
+                    physics: BouncingScrollPhysics(),
+                    itemBuilder: (context, index) {
+                      return Slidable(
+                        direction: Axis.horizontal,
+                        endActionPane: ActionPane(
+                          motion: ScrollMotion(),
+                          extentRatio: 1,
+                          children: [
+                            SlidableAction(
+                              onPressed: (context) {}, //DELETE QUERY SQL + setState
+                              icon: Icons.delete,
+                              label: "Trash",
+                              backgroundColor: Colors.red,
+                            ),
+                            SlidableAction(
+                              onPressed: (context) {}, //FAVORITE QUERY SQL + setState
+                              icon: Icons.star,
+                              label: "Important",
+                              backgroundColor: Colors.green,
+
+                            ),
+                            SlidableAction(
+                              onPressed: (context) {},
+                              icon: Icons.drafts,
+                              label: "Draft",
+                              backgroundColor: Colors.blue,
+                            ),
+                            SlidableAction(
+                              onPressed: (context) {},
+                              icon: Icons.folder_off_outlined,
+                              label: "Spam",
+                              backgroundColor: Colors.grey,
+                              foregroundColor: Colors.white,
+                            ),
+                          ],
                         ),
-                        Padding(
-                          padding: EdgeInsets.only(
-                              left: width / 10, top: height / 40),
-                          child: Text(
-                            "Abdallah Hussam",
-                            style: TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold),
-                          ),
+                        startActionPane: ActionPane(
+                          extentRatio: 0.3,
+                          motion: ScrollMotion(),
+                          children: [
+                          SlidableAction(
+                              onPressed: (context) {},
+                              icon: Icons.push_pin_outlined,
+                              label: "Pin",
+                              backgroundColor: Colors.orange,
+                              foregroundColor: Colors.white,
+                            ),
+                        ],),
+                        child: Stack(
+                          children: [
+                            Container(
+                              padding: EdgeInsets.only(
+                                  left: width / 64, top: height/82),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                              ),
+                              height: height / 6,
+                              width: width,
+                              alignment: Alignment.topLeft,
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                    top: height / 64, left: width / 64),
+                                child: Icon(Icons.circle, color: Colors.red, size: 20,)
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  left: width / 10, top: height / 40),
+                              child: Text(
+                                "Abdallah Hussam", //Sender Name - "${snapshot.data[index]['task']}"
+                                style: TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  left: width / 10, top: height / 18),
+                              child: Text(
+                                "Mail Subject",  //Mail Subject
+                                style: TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  left: width / 10, top: height / 12),
+                              child: Text(
+                                "Mail Content Should Be Shown Here, Mail Content Should Be Shown Here",
+                                style: TextStyle(
+                                    fontSize: 14, fontWeight: FontWeight.normal),
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  top: height / 38, left: width - 70),
+                              child: Text(
+                                "8:12 PM",
+                                style: TextStyle(
+                                    fontSize: 14, fontWeight: FontWeight.normal),
+                              ),
+                            ),
+                          ],
                         ),
-                        Padding(
-                          padding: EdgeInsets.only(
-                              left: width / 10, top: height / 18),
-                          child: Text(
-                            "Mail Subject",
-                            style: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(
-                              left: width / 10, top: height / 12),
-                          child: Text(
-                            "Mail Content Should Be Shown Here, Mail Content Should Be Shown Here",
-                            style: TextStyle(
-                                fontSize: 14, fontWeight: FontWeight.normal),
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(
-                              top: height / 38, left: width - 70),
-                          child: Text(
-                            "8:12 PM",
-                            style: TextStyle(
-                                fontSize: 14, fontWeight: FontWeight.normal),
-                          ),
-                        ),
-                      ],
-                    );
-                  },
+                      );
+                    },
+                  ),
                 ),
               ),
             ]));

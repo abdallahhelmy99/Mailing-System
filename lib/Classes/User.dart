@@ -1,6 +1,8 @@
+import 'Mail.dart';
+
 
 class User {
-  String? userID;
+  int? userID;
   String? fname;
   String? lname;
   String? phoneNo;
@@ -8,6 +10,7 @@ class User {
   String? email;
   String? password;
   List<User>? contacts;
+  List<Mail>? emails;
 
   User({
       required this.userID,
@@ -28,7 +31,6 @@ class User {
       'dob': dob,
       'email': email,
       'password': password,
-      //'contacts': contacts,
     };
   }
 

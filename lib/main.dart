@@ -1,4 +1,7 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
+import 'package:mailing_system/AppViews/addContact.dart';
 import 'package:mailing_system/AppViews/contacs.dart';
 import 'package:mailing_system/AppViews/editProfile_screen.dart';
 import 'package:mailing_system/AppViews/inboxPage.dart';
@@ -37,6 +40,8 @@ class MyApp extends StatelessWidget {
         'inbox': (context) => inboxPage(),
         'editProfile': (context) => EditProfileScreen(),
         'profile': (context) => ProfileScreen(),
+        'send': (context) => SendMessage(),
+        'addContact': (context) => AddContacts(),
       },
     );
   }

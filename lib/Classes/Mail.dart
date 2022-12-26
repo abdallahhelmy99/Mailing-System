@@ -7,10 +7,22 @@ class Mail {
   bool? important;
   bool? spam;
   bool? isRead;
-  
-  List<Mail>? contacts;
+  int senderID;
+  int receiverID;
 
-  Mail({required this.emailID, required this.subject, required this.body, required this.date, required this.trash, required this.important, required this.spam, required this.isRead, required this.contacts}); 
+
+
+  Mail(
+      {required this.emailID,
+      required this.subject,
+      required this.body,
+      required this.date,
+      required this.trash,
+      required this.important,
+      required this.spam,
+      required this.isRead,
+      required this.senderID,
+      required this.receiverID});
 
   Map<String, dynamic> toMap() {
     return {
@@ -22,11 +34,15 @@ class Mail {
       'important': important,
       'spam': spam,
       'isRead': isRead,
+      'senderID': senderID,
+      'receiverID': receiverID,
       //'contacts': contacts,
     };
   }
 
- 
-
- 
+  
+  @override
+  String toString() {
+    return 'Mail{emailID: $emailID, subject: $subject, body: $body, date: $date, trash: $trash, important: $important, spam: $spam, isRead: $isRead}';
+  }
 }

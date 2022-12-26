@@ -5,6 +5,7 @@ import 'dart:ffi';
 import 'package:mailing_system/Classes/User.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
+import 'Classes/Mail.dart';
 
 class dbHelper {
   static Database? _db;
@@ -48,6 +49,26 @@ class dbHelper {
         dob: response[i]['dob'],
         email: response[i]['email'],
         password: response[i]['password'],
+      );
+    });
+  }
+
+  Future<List<Mail>> readMails() async {
+    Database? mydb = await db;
+    List<Map<String, dynamic>> response =
+        await mydb!.rawQuery("SELECT * FROM Mail");
+    return List.generate(response.length, (i) {
+      return Mail(
+        emailID: response[i]['emailID'],
+        subject: response[i]['subject'],
+        body: response[i]['body'],
+        trash: response[i]['trash'],
+        important: response[i]['important'],
+        spam: response[i]['spam'],
+        isRead: response[i]['isRead'],
+        date: response[i]['date'],
+        senderID: response[i]['senderID'],
+        receiverID: response[i]['receiverID'],
       );
     });
   }
