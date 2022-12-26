@@ -2,7 +2,7 @@
 import 'package:mailing_system/Classes/Mail.dart';
 
 class User {
-  String? userID;
+  int? userID;
   String? fname;
   String? lname;
   String? phoneNo;
