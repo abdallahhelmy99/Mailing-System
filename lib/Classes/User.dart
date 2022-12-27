@@ -9,6 +9,8 @@ class User {
   String? dob;
   String? email;
   String? password;
+  String? workExp='';
+  String? education='';
   List<User>? contacts;
 
   User({
