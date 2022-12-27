@@ -65,7 +65,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                         child: IconButton(
                             color: Colors.black,
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.pushNamed(context, 'editProfile');
+                            },
                             icon: const Icon(
                               LineAwesomeIcons.alternate_pencil,
                               size: 20,

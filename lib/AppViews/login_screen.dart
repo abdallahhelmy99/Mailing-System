@@ -106,6 +106,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 pass.text ==
                                     globalVariables.Users![i].password) {
                               globalVariables.currentUser = User(
+                                  userID: globalVariables.Users?[i].userID,
                                   fname: globalVariables.Users?[i].fname,
                                   lname: globalVariables.Users?[i].lname,
                                   phoneNo: globalVariables.Users?[i].phoneNo,
