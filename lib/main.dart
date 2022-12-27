@@ -10,18 +10,14 @@ import 'package:mailing_system/AppViews/mail_Screen.dart';
 import 'package:mailing_system/AppViews/profile_screen.dart';
 import 'package:mailing_system/AppViews/register_screen.dart';
 import 'package:mailing_system/AppViews/sendmessage_screen.dart';
-import 'package:mailing_system/SharedMaterial/notifications.dart';
+import 'package:mailing_system/SharedMaterial/notificationsFactory.dart';
 import 'package:mailing_system/AppViews/splash_screen.dart';
 import 'package:mailing_system/SharedMaterial/globals.dart';  
 import 'SharedMaterial/globals.dart';
 import 'dbHelper.dart';
 
 void main() async{
-  Notifications x = Notifications();
-  WidgetsFlutterBinding.ensureInitialized();
-  await x.setup();
   runApp(MyApp());
-  await x.addNotification("notiBody", "notiTitle"); //Notifications Test***
 }
 
 
