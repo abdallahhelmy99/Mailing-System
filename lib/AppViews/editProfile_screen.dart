@@ -13,6 +13,9 @@ class EditProfileScreen extends StatefulWidget {
 }
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
+  TextEditingController EducationController = TextEditingController();
+  TextEditingController WorkExpController = TextEditingController();
+
   SharedWidgets appBarObj = SharedWidgets();
   @override
   Widget build(BuildContext context) {
@@ -70,42 +73,75 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 Form(
                     child: Column(
                   children: [
-                    TextFieldBuilder('First Name', TextInputType.name,
-                        const Icon(Icons.abc),"${globalVariables.currentUser!.fname}"),
+                    TextFieldBuilder(
+                        'First Name',
+                        TextInputType.name,
+                        const Icon(Icons.abc),
+                        "${globalVariables.currentUser!.fname}"),
                     const SizedBox(
                       height: 10,
                     ),
                     TextFieldBuilder(
-                        'Last Name', TextInputType.name, const Icon(Icons.abc), "${globalVariables.currentUser!.lname}"),
+                        'Last Name',
+                        TextInputType.name,
+                        const Icon(Icons.abc),
+                        "${globalVariables.currentUser!.lname}"),
                     const SizedBox(
                       height: 10,
                     ),
                     TextFieldBuilder(
                         'Email Address',
                         TextInputType.emailAddress,
-                        const Icon(Icons.alternate_email), "${globalVariables.currentUser!.email}"),
+                        const Icon(Icons.alternate_email),
+                        "${globalVariables.currentUser!.email}"),
                     const SizedBox(
                       height: 10,
                     ),
-                    TextFieldBuilder('Phone Number', TextInputType.phone,
-                        const Icon(Icons.phone),  "${globalVariables.currentUser!.phoneNo}"),
+                    TextFieldBuilder(
+                        'Phone Number',
+                        TextInputType.phone,
+                        const Icon(Icons.phone),
+                        "${globalVariables.currentUser!.phoneNo}"),
                     const SizedBox(
                       height: 10,
                     ),
-                    TextFieldBuilder('Password', TextInputType.visiblePassword,
-                        const Icon(Icons.password), "${globalVariables.currentUser!.password}"),
+                    TextFieldBuilder(
+                        'Password',
+                        TextInputType.visiblePassword,
+                        const Icon(Icons.password),
+                        "${globalVariables.currentUser!.password}"),
                     const SizedBox(
                       height: 10,
                     ),
                     TextFieldBuilder(
                         'Confirm Password',
                         TextInputType.visiblePassword,
-                        const Icon(Icons.password),"${globalVariables.currentUser!.password}"),
+                        const Icon(Icons.password),
+                        "${globalVariables.currentUser!.password}"),
                     const SizedBox(
                       height: 10,
                     ),
-                    TextFieldBuilder('Date of birth', TextInputType.datetime,
-                        const Icon(Icons.date_range), "${globalVariables.currentUser!.dob}"),
+                    TextFieldBuilder(
+                        'Date of birth',
+                        TextInputType.datetime,
+                        const Icon(Icons.date_range),
+                        "${globalVariables.currentUser!.dob}"),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    TextFieldBuilder(
+                        'Work Experience',
+                        TextInputType.text,
+                        const Icon(Icons.work),
+                        "${globalVariables.currentUser!.workExp}"),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    TextFieldBuilder(
+                        'Education',
+                        TextInputType.text,
+                        const Icon(Icons.school),
+                        "${globalVariables.currentUser!.education}"),
                     const SizedBox(
                       height: 40,
                     ),
@@ -114,6 +150,16 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       height: 50,
                       child: ElevatedButton(
                         onPressed: () {
+                          setState(() {
+                             globalVariables.currentUser!.workExp =
+                              WorkExpController.text;
+                          globalVariables.currentUser!.education =
+                              EducationController.text;
+                            
+                          });
+                          // msh shghala 100% mehtaga ttzbt bhes el edits ttinsert gwa el database
+                         
+
                           Navigator.pushNamed(context, 'profile');
                         },
                         style: ElevatedButton.styleFrom(
@@ -138,7 +184,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   }
 }
 
-Widget TextFieldBuilder(String labeltxt, TextInputType x, Icon s,String l) {
+Widget TextFieldBuilder(String labeltxt, TextInputType x, Icon s, String l) {
   return Padding(
     padding: const EdgeInsets.all(8.0),
     child: Container(

@@ -8,6 +8,7 @@ import 'package:mailing_system/AppViews/profile_screen.dart';
 import 'package:mailing_system/AppViews/register_screen.dart';
 import 'package:mailing_system/AppViews/sendmessage_screen.dart';
 import 'package:mailing_system/AppViews/splash_screen.dart';
+import 'package:mailing_system/AppViews/trash.dart';
 import 'package:mailing_system/SharedMaterial/globals.dart';
 import 'SharedMaterial/globals.dart';
 
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: LoginScreen(),
+      home: TrashScreen(),
       routes: {
         'contacts': (context) => const Contacts(),
         'sendMessage': (context) => const SendMessage(),
