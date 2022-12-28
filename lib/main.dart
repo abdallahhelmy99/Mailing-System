@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:mailing_system/AppViews/add_contact.dart';
 import 'package:mailing_system/AppViews/contacs.dart';
 import 'package:mailing_system/AppViews/editProfile_screen.dart';
@@ -17,6 +18,10 @@ import 'SharedMaterial/globals.dart';
 import 'dbHelper.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  NotificationFactory init =
+      LoginNotificationFactory(FlutterLocalNotificationsPlugin());
+  init.notifiySetup();
   runApp(MyApp());
 }
 

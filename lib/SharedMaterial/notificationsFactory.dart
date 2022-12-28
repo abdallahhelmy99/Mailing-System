@@ -8,6 +8,19 @@ import 'package:timezone/data/latest.dart' as tz_data;
 
 abstract class NotificationFactory {
   Future<void> createNotification(String body, String title);
+  Future<void> notifiySetup() async {
+    const androidSetting = AndroidInitializationSettings('@mipmap/ic_launcher');
+    final _localNotificationsPlugin = FlutterLocalNotificationsPlugin();
+    // #2
+    const initSettings = InitializationSettings(android: androidSetting);
+
+    // #3
+    await _localNotificationsPlugin.initialize(initSettings).then((_) {
+      debugPrint('setupPlugin: setup success');
+    }).catchError((Object error) {
+      debugPrint('Error: $error');
+    });
+  }
 }
 
 class LoginNotificationFactory implements NotificationFactory {
@@ -22,18 +35,15 @@ class LoginNotificationFactory implements NotificationFactory {
       tz.local,
       DateTime.now().millisecondsSinceEpoch + 100,
     );
-    const androidDetail = AndroidNotificationDetails(
-      "0",
-      "login",
-      visibility: NotificationVisibility.public,
-      colorized: true,
-      color: Color(0xFFFF9000),
-      priority: Priority.high,
-      enableLights: true,
-      styleInformation: BigTextStyleInformation(""),
-      ongoing: true,
-      playSound: true
-    );
+    const androidDetail = AndroidNotificationDetails("0", "login",
+        visibility: NotificationVisibility.public,
+        colorized: true,
+        color: Color(0xFFFF9000),
+        priority: Priority.high,
+        enableLights: true,
+        styleInformation: BigTextStyleInformation(""),
+        ongoing: true,
+        playSound: true);
 
     const noticeDetail = NotificationDetails(
       android: androidDetail,
@@ -50,6 +60,21 @@ class LoginNotificationFactory implements NotificationFactory {
       androidAllowWhileIdle: true,
     );
   }
+
+  @override
+  Future<void> notifiySetup() async {
+    const androidSetting = AndroidInitializationSettings('@mipmap/ic_launcher');
+    final _localNotificationsPlugin = FlutterLocalNotificationsPlugin();
+    // #2
+    const initSettings = InitializationSettings(android: androidSetting);
+
+    // #3
+    await _localNotificationsPlugin.initialize(initSettings).then((_) {
+      debugPrint('setupPlugin: setup success');
+    }).catchError((Object error) {
+      debugPrint('Error: $error');
+    });
+  }
 }
 
 class EmailNotificationFactory implements NotificationFactory {
@@ -64,17 +89,14 @@ class EmailNotificationFactory implements NotificationFactory {
       tz.local,
       DateTime.now().millisecondsSinceEpoch + 250,
     );
-    const androidDetail = AndroidNotificationDetails(
-      "1",
-      "email",
-      visibility: NotificationVisibility.public,
-      colorized: true,
-      priority: Priority.high,
-      enableLights: true,
-      styleInformation: BigTextStyleInformation(""),
-      ongoing: true,
-      playSound: true
-    );
+    const androidDetail = AndroidNotificationDetails("1", "email",
+        visibility: NotificationVisibility.public,
+        colorized: true,
+        priority: Priority.high,
+        enableLights: true,
+        styleInformation: BigTextStyleInformation(""),
+        ongoing: true,
+        playSound: true);
 
     const noticeDetail = NotificationDetails(
       android: androidDetail,
@@ -90,5 +112,20 @@ class EmailNotificationFactory implements NotificationFactory {
           UILocalNotificationDateInterpretation.absoluteTime,
       androidAllowWhileIdle: true,
     );
+  }
+
+  @override
+  Future<void> notifiySetup() async {
+    const androidSetting = AndroidInitializationSettings('@mipmap/ic_launcher');
+    final _localNotificationsPlugin = FlutterLocalNotificationsPlugin();
+    // #2
+    const initSettings = InitializationSettings(android: androidSetting);
+
+    // #3
+    await _localNotificationsPlugin.initialize(initSettings).then((_) {
+      debugPrint('setupPlugin: setup success');
+    }).catchError((Object error) {
+      debugPrint('Error: $error');
+    });
   }
 }
