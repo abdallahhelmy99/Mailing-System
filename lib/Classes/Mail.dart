@@ -1,15 +1,15 @@
 class Mail {
   int? recieverID;
   int? senderID;
-  String? emailID;
+  int? emailID;
   String? subject;
   String? body;
   String? date;
-  bool? trash;
-  bool? important;
-  bool? spam;
-  bool? isRead;
-  bool? isSent;
+  String? trash;
+  String? important;
+  String? spam;
+  String? isRead;
+  String? isSent;
 
   Mail(
       {
