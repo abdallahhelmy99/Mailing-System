@@ -1,7 +1,8 @@
 // ignore_for_file: unused_local_variable, unnecessary_new
 import 'package:flutter/material.dart';
-import 'package:mailing_system/AppViews/inboxPage.dart';
+import 'package:mailing_system/SharedMaterial/notificationsFactory.dart';
 import 'package:mailing_system/SharedMaterial/shared_widgets.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:mailing_system/dbHelper.dart';
 import 'package:mailing_system/SharedMaterial/globals.dart';
 
@@ -16,13 +17,15 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   SharedWidgets appBarObj = SharedWidgets();
-  bool isObsecure = true;
   TextEditingController mail = TextEditingController();
   TextEditingController pass = TextEditingController();
+  NotificationFactory factoryObj = LoginNotificationFactory(FlutterLocalNotificationsPlugin());
   bool isValid = false;
+  bool isObsecure = true;
 
   @override
   void initState() {
+    globalVariables.getUserInstance();
     globalVariables.readData();
     
     // TODO: implement initState
@@ -31,6 +34,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    factoryObj.createNotification("body", "title");
     globalVariables.readData();
     return Scaffold(
       appBar: appBarObj.appBar(

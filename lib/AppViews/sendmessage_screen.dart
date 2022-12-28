@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:intl/intl.dart';
 import 'package:mailing_system/Classes/Mail.dart';
+import 'package:mailing_system/Interfaces/datetimeAdapter.dart';
 import 'package:mailing_system/SharedMaterial/globals.dart';
 import 'package:mailing_system/SharedMaterial/shared_styles.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:mailing_system/SharedMaterial/shared_widgets.dart';
 import 'package:mailing_system/dbHelper.dart';
+
+import '../SharedMaterial/notificationsFactory.dart';
 
 class SendMessage extends StatefulWidget {
   const SendMessage({super.key});
@@ -20,13 +24,15 @@ class _SendMessageState extends State<SendMessage> {
   TextEditingController toField = TextEditingController();
   TextEditingController subjectFieldController = TextEditingController();
   TextEditingController msgBodyController = TextEditingController();
+  NotificationFactory notifiyIns=EmailNotificationFactory(FlutterLocalNotificationsPlugin());
   FilePickerResult? pickVariable;
   bool removeAttach = true;
   bool toIsEmpty = true;
   bool subjIsEmpty = true;
   bool msgBodyIsEmpty = true;
-  String curretnDate = DateTime.now().toString().substring(0, 19);
+  DateTimeAdapter adapterObj=DateTimeAdapter(DateTime.now());
   int recieverUserID=13883;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,11 +68,12 @@ class _SendMessageState extends State<SendMessage> {
             padding: const EdgeInsets.only(right: 15.0),
             child: IconButton(
                 onPressed: () {
+                  print(adapterObj);
                   if (toField.text != "" &&
                       subjectFieldController.text != "" &&
                       msgBodyController.text != "") {
                     dbObj.insertData(
-                        "Insert into Mail(subject,body,trash,important,spam,isRead,date,senderID,receiverID) values('${subjectFieldController.text}','${msgBodyController.text}','${false}','${false}','${false}','${false}','${curretnDate}','${globalVariables.currentUser!.userID}','${recieverUserID}')");
+                        "Insert into Mail(subject,body,trash,important,spam,isRead,date,senderID,receiverID) values('${subjectFieldController.text}','${msgBodyController.text}','${false}','${false}','${false}','${false}','${adapterObj}','${globalVariables.currentUser!.userID}','${recieverUserID}')");
                    var snackBar = const SnackBar(
                       content: Text('Message sent !!'),
                       backgroundColor: Colors.green,
@@ -74,6 +81,7 @@ class _SendMessageState extends State<SendMessage> {
                       elevation: 10,
                     );
                     ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    notifiyIns.createNotification("Email Sent to ${toField.text}","You Have Sucessfully Sent an Email !");
                     setState(() {
                       toIsEmpty = false;
                       subjIsEmpty = false;
@@ -97,6 +105,7 @@ class _SendMessageState extends State<SendMessage> {
                       msgBodyIsEmpty = true;
                     });
                   }
+                  
                 },
                 icon: const Icon(
                   Icons.send_rounded,

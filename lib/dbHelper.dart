@@ -59,7 +59,7 @@ class dbHelper {
     List<Map<String, dynamic>> response =
         await mydb!.rawQuery("SELECT * FROM Mail WHERE receiverID = ${globalVariables.currentUser!.userID}");
     return List.generate(response.length, (i) {
-      return Mail(
+        return Mail(
         emailID: response[i]['emailID'],
         subject: response[i]['subject'],
         body: response[i]['body'],
