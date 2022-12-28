@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:mailing_system/AppViews/addContact.dart';
+import 'package:mailing_system/AppViews/add_contact.dart';
 import 'package:mailing_system/AppViews/contacs.dart';
 import 'package:mailing_system/AppViews/editProfile_screen.dart';
 import 'package:mailing_system/AppViews/inboxPage.dart';
@@ -17,15 +17,7 @@ import 'SharedMaterial/globals.dart';
 import 'dbHelper.dart';
 
 void main() async{
-<<<<<<< HEAD
-  //Notifications x = Notifications();
-  //WidgetsFlutterBinding.ensureInitialized();
-  // await x.setup();
-   runApp(MyApp());
-  // await x.addNotification("notiBody", "notiTitle"); //Notifications Test***
-=======
   runApp(MyApp());
->>>>>>> 9ced9e4a40dd0a876f3fb8008d1252bc1a844185
 }
 
 
