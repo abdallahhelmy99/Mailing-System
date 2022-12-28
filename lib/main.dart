@@ -1,11 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
-import 'package:mailing_system/AppViews/add_Contact.dart';
-=======
 import 'package:mailing_system/AppViews/add_contact.dart';
->>>>>>> 91f89456d880fe90fcf0b86853e9a39e566f936f
 import 'package:mailing_system/AppViews/contacs.dart';
 import 'package:mailing_system/AppViews/editProfile_screen.dart';
 import 'package:mailing_system/AppViews/inboxPage.dart';
@@ -20,11 +16,7 @@ import 'package:mailing_system/SharedMaterial/globals.dart';
 import 'SharedMaterial/globals.dart';
 import 'dbHelper.dart';
 
-<<<<<<< HEAD
 void main() async {
-=======
-void main() async{
->>>>>>> 91f89456d880fe90fcf0b86853e9a39e566f936f
   runApp(MyApp());
 }
 
