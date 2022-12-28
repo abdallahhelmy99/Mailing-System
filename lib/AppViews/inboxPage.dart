@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, curly_braces_in_flow_control_structures
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, sort_child_properties_last, unnecessary_string_interpolations
 
 import 'package:flutter/material.dart';
@@ -9,6 +9,7 @@ import 'package:badges/badges.dart' as bd;
 import 'package:anim_search_bar/anim_search_bar.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:mailing_system/AppViews/profile_screen.dart';
+import 'package:mailing_system/Classes/Mail.dart';
 import 'package:mailing_system/Classes/User.dart';
 import 'package:mailing_system/SharedMaterial/globals.dart';
 import 'package:mailing_system/dbHelper.dart';
@@ -29,7 +30,13 @@ class _inboxPageState extends State<inboxPage> {
   TextEditingController text = new TextEditingController();
   var selectedfolder = 'Inbox';
   dbHelper helper = dbHelper();
-  
+
+
+  @override
+  void initState() {
+    globalVariables.readMyMails();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -115,7 +122,7 @@ class _inboxPageState extends State<inboxPage> {
                   Container(
                       alignment: Alignment.center,
                       child: Text(
-                        "Counter " + "Unread Messages", //Hena lazem nafs el counter
+                        "${globalVariables.MyMails!.length} " + "Unread Messages", //Hena lazem nafs el counter
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontSize: 16, fontWeight: FontWeight.w400),
@@ -233,10 +240,8 @@ class _inboxPageState extends State<inboxPage> {
                   )),
               //Cards El Emails Hena
               Expanded(
-                  child: FutureBuilder(
-                  future: helper.readMails(),
-                  builder: (context, AsyncSnapshot snapshot) =>  ListView.builder(
-                    itemCount: 10,
+                  child: ListView.builder(
+                    itemCount: globalVariables.MyMails!.length,
                     physics: BouncingScrollPhysics(),
                     itemBuilder: (context, index) {
                       return Slidable(
@@ -306,7 +311,9 @@ class _inboxPageState extends State<inboxPage> {
                               padding: EdgeInsets.only(
                                   left: width / 10, top: height / 40),
                               child: Text(
-                                "Abdallah Hussam", //Sender Name - "${snapshot.data[index]['task']}"
+                                "${returnName(globalVariables.MyMails![index].senderID!)}",
+                                // "${globalVariables.Users![index].fname }" //Sender Name - "${snapshot.data[index]['task']}"
+                                //for (int i = 0; i < globalVariables.Users!.length; i++)
                                 style: TextStyle(
                                     fontSize: 20, fontWeight: FontWeight.bold),
                               ),
@@ -315,7 +322,7 @@ class _inboxPageState extends State<inboxPage> {
                               padding: EdgeInsets.only(
                                   left: width / 10, top: height / 18),
                               child: Text(
-                                "Mail Subject",  //Mail Subject
+                                "${globalVariables.MyMails![index].subject}",  //Mail Subject
                                 style: TextStyle(
                                     fontSize: 18, fontWeight: FontWeight.bold),
                               ),
@@ -324,7 +331,7 @@ class _inboxPageState extends State<inboxPage> {
                               padding: EdgeInsets.only(
                                   left: width / 10, top: height / 12),
                               child: Text(
-                                "Mail Content Should Be Shown Here, Mail Content Should Be Shown Here",
+                                "${globalVariables.MyMails![index].body}",
                                 style: TextStyle(
                                     fontSize: 14, fontWeight: FontWeight.normal),
                               ),
@@ -333,7 +340,7 @@ class _inboxPageState extends State<inboxPage> {
                               padding: EdgeInsets.only(
                                   top: height / 38, left: width - 70),
                               child: Text(
-                                "8:12 PM",
+                                "${globalVariables.MyMails![index].date}",
                                 style: TextStyle(
                                     fontSize: 14, fontWeight: FontWeight.normal),
                               ),
@@ -342,9 +349,27 @@ class _inboxPageState extends State<inboxPage> {
                         ),
                       );
                     },
+                    
                   ),
-                ),
-              ),
-            ]));
+             
+            )
+            ],
+  ),
+    );            
+            
   }
+
+  String? returnName(int x){
+    String? fname;
+    String? lname;
+    String? fullName;
+     for ( int index = 0; index < globalVariables.Users!.length; index++){
+      if ( globalVariables.Users![index].userID == x) 
+        fname = globalVariables.Users![index].fname;
+        lname = globalVariables.Users![index].lname;
+        fullName = "${fname} ${lname}";
+  }
+  return fullName;
+  }
+
 }

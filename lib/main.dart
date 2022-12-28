@@ -17,11 +17,11 @@ import 'SharedMaterial/globals.dart';
 import 'dbHelper.dart';
 
 void main() async{
-  Notifications x = Notifications();
-  WidgetsFlutterBinding.ensureInitialized();
-  await x.setup();
-  runApp(MyApp());
-  await x.addNotification("notiBody", "notiTitle"); //Notifications Test***
+  //Notifications x = Notifications();
+  //WidgetsFlutterBinding.ensureInitialized();
+  // await x.setup();
+   runApp(MyApp());
+  // await x.addNotification("notiBody", "notiTitle"); //Notifications Test***
 }
 
 

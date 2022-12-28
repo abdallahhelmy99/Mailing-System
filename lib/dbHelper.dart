@@ -3,6 +3,7 @@
 import 'dart:ffi';
 
 import 'package:mailing_system/Classes/User.dart';
+import 'package:mailing_system/SharedMaterial/globals.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'Classes/Mail.dart';
@@ -53,10 +54,10 @@ class dbHelper {
     });
   }
 
-  Future<List<Mail>> readMails() async {
+  Future<List<Mail>> readMyEmails() async {
     Database? mydb = await db;
     List<Map<String, dynamic>> response =
-        await mydb!.rawQuery("SELECT * FROM Mail");
+        await mydb!.rawQuery("SELECT * FROM Mail WHERE receiverID = ${globalVariables.currentUser!.userID}");
     return List.generate(response.length, (i) {
       return Mail(
         emailID: response[i]['emailID'],
@@ -73,13 +74,42 @@ class dbHelper {
       );
     });
   }
+
+  // Future<List<Mail>> readMails() async {
+  //   Database? mydb = await db;
+  //   List<Map<String, dynamic>> response =
+  //       await mydb!.rawQuery("SELECT * FROM Mail");
+  //   return List.generate(response.length, (i) {
+  //     return Mail(
+  //       emailID: response[i]['emailID'],
+  //       subject: response[i]['subject'],
+  //       body: response[i]['body'],
+  //       trash: response[i]['trash'],
+  //       important: response[i]['important'],
+  //       spam: response[i]['spam'],
+  //       isRead: response[i]['isRead'],
+  //       date: response[i]['date'],
+  //       senderID: response[i]['senderID'],
+  //       recieverID: response[i]['receiverID'],
+  //       isSent: response[i]['']
+  //     );
+  //   });
+  // }
   
-    Future<List<Map>> readUnDoneTasks() async {
-    Database? mydb = await db;
-    List<Map> response =
-        await mydb!.rawQuery("SELECT * FROM Users");
-    return response;
-  }
+  //   Future<List<Map>> readUnDoneTasks() async {
+  //   Database? mydb = await db;
+  //   List<Map> response =
+  //       await mydb!.rawQuery("SELECT * FROM Users");
+  //   return response;
+  // }
+
+  // Future<List<Map>> readMyEmails() async {
+  //   Database? mydb = await db;
+  //   List<Map<String, dynamic>> response =
+  //       await mydb!.rawQuery("SELECT * FROM Mail WHERE senderID = ${globalVariables.currentUser!.userID}");
+  //   return response;
+  // }
+
 
   Future<int> insertData(String sql) async {
     Database? mydb = await db;

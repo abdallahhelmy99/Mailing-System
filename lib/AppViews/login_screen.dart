@@ -24,7 +24,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void initState() {
     globalVariables.readData();
-
+    
     // TODO: implement initState
     super.initState();
   }
@@ -113,10 +113,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                   dob: globalVariables.Users?[i].dob,
                                   email: globalVariables.Users?[i].email,
                                   password: globalVariables.Users?[i].password);
+                              
                               mail.clear();
                               pass.clear();
                               setState(() {
                                 isValid = true;
+                                   
                               });
                               break;
                             } else {
@@ -146,6 +148,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ScaffoldMessenger.of(context)
                               .showSnackBar(loginGreeting);
                           Navigator.pushNamed(context, 'inbox');
+                          
                         } else if(!isValid && (mail.text != "" && pass.text != "")  ) {
                           const credsError = SnackBar(
                             content: Text(
