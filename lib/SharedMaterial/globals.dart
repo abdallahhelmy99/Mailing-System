@@ -31,8 +31,7 @@ class globalVariables {
     Users = await helper.readUsers();
   }
 
-   static void readMyMails() async{
+  static void readMyMails() async {
     MyMails = await helper.readMyEmails();
   }
-
 }

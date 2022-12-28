@@ -12,14 +12,13 @@ import 'package:mailing_system/AppViews/register_screen.dart';
 import 'package:mailing_system/AppViews/sendmessage_screen.dart';
 import 'package:mailing_system/SharedMaterial/notificationsFactory.dart';
 import 'package:mailing_system/AppViews/splash_screen.dart';
-import 'package:mailing_system/SharedMaterial/globals.dart';  
+import 'package:mailing_system/SharedMaterial/globals.dart';
 import 'SharedMaterial/globals.dart';
 import 'dbHelper.dart';
 
-void main() async{
+void main() async {
   runApp(MyApp());
 }
-
 
 class MyApp extends StatelessWidget {
   MyApp({super.key});
