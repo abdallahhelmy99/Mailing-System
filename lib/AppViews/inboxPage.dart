@@ -221,6 +221,9 @@ class _inboxPageState extends State<inboxPage> {
                     padding: EdgeInsets.only(
                         top: height / 64, right: width / 32, left: width / 128),
                     child: AnimSearchBar(
+                      onSubmitted:  (p0) {
+                        
+                      },
                       color: Colors.grey[350],
                       width: width - 30,
                       textController: text,
@@ -340,122 +343,6 @@ class _inboxPageState extends State<inboxPage> {
                         ),
                       ),
                     ],
-<<<<<<< HEAD
-                  )),
-              //Cards El Emails Hena
-              Expanded(
-                  child: ListView.builder(
-                    itemCount: globalVariables.MyMails!.length, //EXCEPTION
-                    physics: BouncingScrollPhysics(),
-                    itemBuilder: (context, index) {
-                      return Slidable(
-                        direction: Axis.horizontal,
-                        endActionPane: ActionPane(
-                          motion: ScrollMotion(),
-                          extentRatio: 1,
-                          children: [
-                            SlidableAction(
-                              onPressed: (context) {}, //DELETE QUERY SQL + setState
-                              icon: Icons.delete,
-                              label: "Trash",
-                              backgroundColor: Colors.red,
-                            ),
-                            SlidableAction(
-                              onPressed: (context) {}, //FAVORITE QUERY SQL + setState
-                              icon: Icons.star,
-                              label: "Important",
-                              backgroundColor: Colors.green,
-
-                            ),
-                            SlidableAction(
-                              onPressed: (context) {},
-                              icon: Icons.drafts,
-                              label: "Draft",
-                              backgroundColor: Colors.blue,
-                            ),
-                            SlidableAction(
-                              onPressed: (context) {},
-                              icon: Icons.folder_off_outlined,
-                              label: "Spam",
-                              backgroundColor: Colors.grey,
-                              foregroundColor: Colors.white,
-                            ),
-                          ],
-                        ),
-                        startActionPane: ActionPane(
-                          extentRatio: 0.3,
-                          motion: ScrollMotion(),
-                          children: [
-                          SlidableAction(
-                              onPressed: (context) {},
-                              icon: Icons.push_pin_outlined,
-                              label: "Pin",
-                              backgroundColor: Colors.orange,
-                              foregroundColor: Colors.white,
-                            ),
-                        ],),
-                        child: Stack(
-                          children: [
-                            Container(
-                              padding: EdgeInsets.only(
-                                  left: width / 64, top: height/82),
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                              ),
-                              height: height / 6,
-                              width: width,
-                              alignment: Alignment.topLeft,
-                              child: Padding(
-                                padding: EdgeInsets.only(
-                                    top: height / 64, left: width / 64),
-                                child: Icon(Icons.circle, color: Colors.red, size: 20,)
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(
-                                  left: width / 10, top: height / 40),
-                              child: Text(
-                                "${returnName(globalVariables.MyMails![index].senderID!)}",
-                                // "${globalVariables.Users![index].fname }" //Sender Name - "${snapshot.data[index]['task']}"
-                                //for (int i = 0; i < globalVariables.Users!.length; i++)
-                                style: TextStyle(
-                                    fontSize: 20, fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(
-                                  left: width / 10, top: height / 18),
-                              child: Text(
-                                "${globalVariables.MyMails![index].subject}",  //Mail Subject
-                                style: TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(
-                                  left: width / 10, top: height / 12),
-                              child: Text(
-                                "${globalVariables.MyMails![index].body}",
-                                style: TextStyle(
-                                    fontSize: 14, fontWeight: FontWeight.normal),
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(
-                                  top: height / 38, left: width - 70),
-                              child: Text(
-                                "${globalVariables.MyMails![index].date}",
-                                style: TextStyle(
-                                    fontSize: 14, fontWeight: FontWeight.normal),
-                              ),
-                            ),
-                          ],
-                        ),
-                      );
-                    },
-                    
-=======
->>>>>>> 03f6be41dc698506ce01ab94616bb0ad8eecfc6c
                   ),
                 );
               },
