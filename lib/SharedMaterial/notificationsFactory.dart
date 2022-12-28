@@ -70,7 +70,7 @@ class LoginNotificationFactory implements NotificationFactory {
 
     // #3
     await _localNotificationsPlugin.initialize(initSettings).then((_) {
-      debugPrint('setupPlugin: setup success');
+      debugPrint('setupPlugin: setup success **');
     }).catchError((Object error) {
       debugPrint('Error: $error');
     });
