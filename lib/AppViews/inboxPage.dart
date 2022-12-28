@@ -241,7 +241,7 @@ class _inboxPageState extends State<inboxPage> {
               //Cards El Emails Hena
               Expanded(
                   child: ListView.builder(
-                    itemCount: globalVariables.MyMails!.length,
+                    itemCount: globalVariables.MyMails!.length, //EXCEPTION
                     physics: BouncingScrollPhysics(),
                     itemBuilder: (context, index) {
                       return Slidable(
