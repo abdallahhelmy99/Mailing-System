@@ -221,6 +221,9 @@ class _inboxPageState extends State<inboxPage> {
                     padding: EdgeInsets.only(
                         top: height / 64, right: width / 32, left: width / 128),
                     child: AnimSearchBar(
+                      onSubmitted:  (p0) {
+                        
+                      },
                       color: Colors.grey[350],
                       width: width - 30,
                       textController: text,
