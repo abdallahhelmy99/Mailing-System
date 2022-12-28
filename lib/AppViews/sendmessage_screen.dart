@@ -26,7 +26,7 @@ class _SendMessageState extends State<SendMessage> {
   bool subjIsEmpty = true;
   bool msgBodyIsEmpty = true;
   String curretnDate = DateTime.now().toString().substring(0, 19);
-  int recieverUserID=13883;
+  int recieverUserID = 13883;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,7 +67,7 @@ class _SendMessageState extends State<SendMessage> {
                       msgBodyController.text != "") {
                     dbObj.insertData(
                         "Insert into Mail(subject,body,trash,important,spam,isRead,date,senderID,receiverID) values('${subjectFieldController.text}','${msgBodyController.text}','${false}','${false}','${false}','${false}','${curretnDate}','${globalVariables.currentUser!.userID}','${recieverUserID}')");
-                   var snackBar = const SnackBar(
+                    var snackBar = const SnackBar(
                       content: Text('Message sent !!'),
                       backgroundColor: Colors.green,
                       duration: Duration(seconds: 2),
