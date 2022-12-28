@@ -225,6 +225,7 @@ class _inboxPageState extends State<inboxPage> {
                       width: width - 30,
                       textController: text,
                       onSuffixTap: () {},
+                       onSubmitted: (String ) {  },
                     ),
                   ),
                 ],
