@@ -64,7 +64,8 @@ class _inboxPageState extends State<inboxPage> {
                 splashRadius: 25),
             IconButton(
                 onPressed: () {
-                  Navigator.pop(context);
+                  Navigator.pushNamedAndRemoveUntil(
+                      context, 'login', (Route route) => false);
                   globalVariables.dispose();
                 },
                 icon: Icon(
@@ -194,6 +195,9 @@ class _inboxPageState extends State<inboxPage> {
                       icon: Icon(Icons.contacts, color: Colors.black),
                       onPressed: () {
                         Navigator.pushNamed(context, 'contacts');
+                        setState(() {
+                          helper.readMyContacts();
+                        });
                         //helper.insertData('INSERT INTO mail (id,subject,from,to,cc,bcc,attachment,mailBody) VALUES (1,"test","1","1","test","test","test","test")');
                       },
                       iconSize: 30,
@@ -221,14 +225,11 @@ class _inboxPageState extends State<inboxPage> {
                     padding: EdgeInsets.only(
                         top: height / 64, right: width / 32, left: width / 128),
                     child: AnimSearchBar(
-                      onSubmitted:  (p0) {
-                        
-                      },
+                      onSubmitted: (p0) {},
                       color: Colors.grey[350],
                       width: width - 30,
                       textController: text,
                       onSuffixTap: () {},
-                       onSubmitted: (String ) {  },
                     ),
                   ),
                 ],

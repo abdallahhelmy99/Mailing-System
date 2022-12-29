@@ -1,4 +1,3 @@
-
 import 'package:mailing_system/Classes/Mail.dart';
 
 class User {
@@ -9,20 +8,20 @@ class User {
   String? dob;
   String? email;
   String? password;
-  String? workExp='';
-  String? education='';
+  String? workExp = '';
+  String? education = '';
   List<User>? contacts;
 
   User({
-      required this.userID,
-      required this.fname,
-      required this.lname,
-      required this.phoneNo,
-      required this.dob,
-      required this.email,
-      required this.password,
-      // this.mailObj
-      });
+    required this.userID,
+    required this.fname,
+    required this.lname,
+    required this.phoneNo,
+    required this.dob,
+    required this.email,
+    required this.password,
+    // this.mailObj
+  });
 
   Map<String, dynamic> toMap() {
     return {

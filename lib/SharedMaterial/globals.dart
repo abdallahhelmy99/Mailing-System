@@ -1,5 +1,6 @@
 //Hena hanshel ay global me7tageno zy list of users aw contacts aw mails
 import 'package:mailing_system/dbHelper.dart';
+import '../Classes/Contact.dart';
 import '../Classes/User.dart';
 import '../Classes/Mail.dart';
 
@@ -8,6 +9,7 @@ class globalVariables {
   static List<User>? Users;
   static User? currentUser;
   static List<Mail>? MyMails;
+  static List<Contact>? contacts;
 
   static User? getUserInstance() {
     if (globalVariables.currentUser == null) {
@@ -33,5 +35,9 @@ class globalVariables {
 
   static void readMyMails() async {
     MyMails = await helper.readMyEmails();
+  }
+
+  static void readMyContacts() async {
+    contacts = await helper.readMyContacts();
   }
 }
