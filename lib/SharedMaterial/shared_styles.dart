@@ -13,7 +13,7 @@ class SharedFonts {
       fontWeight: FontWeight.normal,
       fontFamily: 'SourceSansPro');
   static TextStyle thirdStyle = TextStyle(
-      fontSize: 29,
+      fontSize: 23,
       color: AppColors.thirdColor,
       fontWeight: FontWeight.normal,
       fontFamily: 'SourceSansPro');

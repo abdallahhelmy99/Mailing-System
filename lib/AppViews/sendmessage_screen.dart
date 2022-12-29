@@ -24,14 +24,18 @@ class _SendMessageState extends State<SendMessage> {
   TextEditingController toField = TextEditingController();
   TextEditingController subjectFieldController = TextEditingController();
   TextEditingController msgBodyController = TextEditingController();
-  NotificationFactory notifiyIns=EmailNotificationFactory(FlutterLocalNotificationsPlugin());
+  NotificationFactory notifiyIns =
+      EmailNotificationFactory(FlutterLocalNotificationsPlugin());
   FilePickerResult? pickVariable;
   bool removeAttach = true;
   bool toIsEmpty = true;
   bool subjIsEmpty = true;
   bool msgBodyIsEmpty = true;
-  DateTimeAdapter adapterObj=DateTimeAdapter(DateTime.now());
-  int recieverUserID=13883;
+  DateTimeAdapter adapterObj = DateTimeAdapter(DateTime.now());
+  int recieverUserID = 13883;
+  dynamic timePick = "";
+  dynamic datePick = "";
+  dynamic collectedDateTime = "";
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +54,7 @@ class _SendMessageState extends State<SendMessage> {
                 const Padding(
                   padding: EdgeInsets.only(top: 15),
                   child: Icon(Icons.cloud_circle_sharp,
-                      color: Colors.lightBlue, size: 30),
+                      color: Colors.black, size: 30),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 15.0, left: 10),
@@ -60,7 +64,14 @@ class _SendMessageState extends State<SendMessage> {
                   ),
                 )
               ],
-            )
+            ),
+            collectedDateTime != null
+                ? Container(
+                    child: Text(
+                    "${collectedDateTime}",
+                    style: SharedFonts.attachStyle,
+                  ))
+                : Text("")
           ],
         ),
         <Widget>[
@@ -74,14 +85,16 @@ class _SendMessageState extends State<SendMessage> {
                       msgBodyController.text != "") {
                     dbObj.insertData(
                         "Insert into Mail(subject,body,trash,important,spam,isRead,draft,date,senderID,receiverID,isSent) values('${subjectFieldController.text}','${msgBodyController.text}','${false}','${false}','${false}','${false}','${false}','${adapterObj}','${globalVariables.currentUser!.userID}','${recieverUserID}', '${true}')");
-                   var snackBar = const SnackBar(
+                    var snackBar = const SnackBar(
                       content: Text('Message sent !!'),
                       backgroundColor: Colors.green,
                       duration: Duration(seconds: 2),
                       elevation: 10,
                     );
                     ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                    notifiyIns.createNotification("Email Sent to ${toField.text}","You Have Sucessfully Sent an Email !");
+                    notifiyIns.createNotification(
+                        "Email Sent to ${toField.text}",
+                        "You Have Sucessfully Sent an Email !");
                     setState(() {
                       toIsEmpty = false;
                       subjIsEmpty = false;
@@ -105,7 +118,6 @@ class _SendMessageState extends State<SendMessage> {
                       msgBodyIsEmpty = true;
                     });
                   }
-                  
                 },
                 icon: const Icon(
                   Icons.send_rounded,
@@ -129,12 +141,12 @@ class _SendMessageState extends State<SendMessage> {
                 elevation: 5,
                 child: InkWell(
                   onFocusChange: (value) {
-                        for (int i = 0; i < globalVariables.Users!.length; i++) {
-                          if (globalVariables.Users![i].email == toField.text) {
-                            recieverUserID = globalVariables.Users![i].userID!;
-                          }
-                        }
-                      },
+                    for (int i = 0; i < globalVariables.Users!.length; i++) {
+                      if (globalVariables.Users![i].email == toField.text) {
+                        recieverUserID = globalVariables.Users![i].userID!;
+                      }
+                    }
+                  },
                   child: TextField(
                       cursorColor: Colors.black,
                       controller: toField,
