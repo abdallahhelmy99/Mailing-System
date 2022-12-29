@@ -58,6 +58,10 @@ class globalVariables {
   static void readSent() async {
     MyMails = await helper.readSent();
   }
+
+  static void readMyContacts() async {
+    contacts = await helper.readMyContacts();
+  }
   //function to show toast message
 
 }
