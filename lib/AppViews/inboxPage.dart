@@ -262,7 +262,6 @@ class _inboxPageState extends State<inboxPage> {
                       width: width - 30,
                       textController: text,
                       onSuffixTap: () {},
-                       onSubmitted: (String ) {  },
                     ),
                   ),
                 ],
@@ -330,7 +329,7 @@ class _inboxPageState extends State<inboxPage> {
                       ],
                     ),
                     startActionPane: ActionPane(
-                      extentRatio: 0.3,
+                      extentRatio: 0.6,
                       motion: ScrollMotion(),
                       children: [
                         SlidableAction(
@@ -338,6 +337,13 @@ class _inboxPageState extends State<inboxPage> {
                           icon: Icons.push_pin_outlined,
                           label: "Pin",
                           backgroundColor: Colors.orange,
+                          foregroundColor: Colors.white,
+                        ),
+                         SlidableAction(
+                          onPressed: (context) {},
+                          icon: Icons.push_pin_outlined,
+                          label: "Delete",
+                          backgroundColor: Colors.red,
                           foregroundColor: Colors.white,
                         ),
                       ],
