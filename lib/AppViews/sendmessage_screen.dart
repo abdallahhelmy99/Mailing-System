@@ -73,7 +73,7 @@ class _SendMessageState extends State<SendMessage> {
                       subjectFieldController.text != "" &&
                       msgBodyController.text != "") {
                     dbObj.insertData(
-                        "Insert into Mail(subject,body,trash,important,spam,isRead,date,senderID,receiverID) values('${subjectFieldController.text}','${msgBodyController.text}','${false}','${false}','${false}','${false}','${adapterObj}','${globalVariables.currentUser!.userID}','${recieverUserID}')");
+                        "Insert into Mail(subject,body,trash,important,spam,isRead,draft,date,senderID,receiverID,isSent) values('${subjectFieldController.text}','${msgBodyController.text}','${false}','${false}','${false}','${false}','${false}','${adapterObj}','${globalVariables.currentUser!.userID}','${recieverUserID}', '${true}')");
                    var snackBar = const SnackBar(
                       content: Text('Message sent !!'),
                       backgroundColor: Colors.green,
@@ -127,41 +127,43 @@ class _SendMessageState extends State<SendMessage> {
                 shadowColor: Colors.black,
                 color: Colors.white,
                 elevation: 5,
-                child: TextField(
-                    cursorColor: Colors.black,
-                    controller: toField,
-                    onSubmitted: (value) {
-                      for (int i = 0; i < globalVariables.Users!.length; i++) {
-                        if (globalVariables.Users![i].email == toField.text) {
-                          recieverUserID = globalVariables.Users![i].userID!;
+                child: InkWell(
+                  onFocusChange: (value) {
+                        for (int i = 0; i < globalVariables.Users!.length; i++) {
+                          if (globalVariables.Users![i].email == toField.text) {
+                            recieverUserID = globalVariables.Users![i].userID!;
+                          }
                         }
-                      }
-                    },
-                    obscureText: false,
-                    decoration: InputDecoration(
-                        focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: const BorderSide(
-                                color: Color.fromARGB(0, 83, 72, 72),
-                                width: 0)),
-                        fillColor: Colors.white,
-                        filled: true,
-                        enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: const BorderSide(
-                                color: Colors.transparent, width: 0)),
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10)),
-                        prefixIcon: const Padding(
-                          padding: EdgeInsets.all(15.0),
-                          child: Text(
-                            "To :",
-                            style: TextStyle(
-                                color: Colors.grey,
-                                fontFamily: "Cabin",
-                                fontSize: 15),
-                          ),
-                        ))),
+                      },
+                  child: TextField(
+                      cursorColor: Colors.black,
+                      controller: toField,
+                      obscureText: false,
+                      decoration: InputDecoration(
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: const BorderSide(
+                                  color: Color.fromARGB(0, 83, 72, 72),
+                                  width: 0)),
+                          fillColor: Colors.white,
+                          filled: true,
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: const BorderSide(
+                                  color: Colors.transparent, width: 0)),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10)),
+                          prefixIcon: const Padding(
+                            padding: EdgeInsets.all(15.0),
+                            child: Text(
+                              "To :",
+                              style: TextStyle(
+                                  color: Colors.grey,
+                                  fontFamily: "Cabin",
+                                  fontSize: 15),
+                            ),
+                          ))),
+                ),
               ),
             ),
           ),

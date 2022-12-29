@@ -1,4 +1,6 @@
 //Hena hanshel ay global me7tageno zy list of users aw contacts aw mails
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:mailing_system/dbHelper.dart';
 import '../Classes/Contact.dart';
 import '../Classes/User.dart';
@@ -33,11 +35,29 @@ class globalVariables {
     Users = await helper.readUsers();
   }
 
-  static void readMyMails() async {
-    MyMails = await helper.readMyEmails();
+  static void readInbox() async {
+    MyMails = await helper.readInbox();
   }
 
-  static void readMyContacts() async {
-    contacts = await helper.readMyContacts();
+  static void readDraft() async {
+    MyMails = await helper.readDraft();
   }
+
+  static void readImportant() async {
+    MyMails = await helper.readImportant();
+  }
+
+  static void readSpam() async {
+    MyMails = await helper.readSpam();
+  }
+
+  static void readTrash() async {
+    MyMails = await helper.readTrash();
+  }
+
+  static void readSent() async {
+    MyMails = await helper.readSent();
+  }
+  //function to show toast message
+
 }
