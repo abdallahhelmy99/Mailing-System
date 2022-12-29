@@ -11,6 +11,7 @@ import 'package:mailing_system/AppViews/mail_Screen.dart';
 import 'package:mailing_system/AppViews/profile_screen.dart';
 import 'package:mailing_system/AppViews/register_screen.dart';
 import 'package:mailing_system/AppViews/sendmessage_screen.dart';
+import 'package:mailing_system/AppViews/trash.dart';
 import 'package:mailing_system/SharedMaterial/notificationsFactory.dart';
 import 'package:mailing_system/AppViews/splash_screen.dart';
 import 'package:mailing_system/SharedMaterial/globals.dart';
@@ -48,6 +49,7 @@ class MyApp extends StatelessWidget {
         'profile': (context) => ProfileScreen(),
         'send': (context) => SendMessage(),
         'addContact': (context) => AddContacts(),
+        'trash': (context) => TrashScreen(),
       },
     );
   }
