@@ -24,14 +24,18 @@ class _SendMessageState extends State<SendMessage> {
   TextEditingController toField = TextEditingController();
   TextEditingController subjectFieldController = TextEditingController();
   TextEditingController msgBodyController = TextEditingController();
-  NotificationFactory notifiyIns=EmailNotificationFactory(FlutterLocalNotificationsPlugin());
+  NotificationFactory notifiyIns =
+      EmailNotificationFactory(FlutterLocalNotificationsPlugin());
   FilePickerResult? pickVariable;
   bool removeAttach = true;
   bool toIsEmpty = true;
   bool subjIsEmpty = true;
   bool msgBodyIsEmpty = true;
-  DateTimeAdapter adapterObj=DateTimeAdapter(DateTime.now());
-  int recieverUserID=13883;
+  DateTimeAdapter adapterObj = DateTimeAdapter(DateTime.now());
+  int recieverUserID = 13883;
+  dynamic timePick = "";
+  dynamic datePick = "";
+  dynamic collectedDateTime = "";
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +54,7 @@ class _SendMessageState extends State<SendMessage> {
                 const Padding(
                   padding: EdgeInsets.only(top: 15),
                   child: Icon(Icons.cloud_circle_sharp,
-                      color: Colors.lightBlue, size: 30),
+                      color: Colors.black, size: 30),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 15.0, left: 10),
@@ -60,59 +64,111 @@ class _SendMessageState extends State<SendMessage> {
                   ),
                 )
               ],
-            )
+            ),
+            collectedDateTime != null
+                ? Container(
+                    child: Text(
+                    "${collectedDateTime}",
+                    style: SharedFonts.attachStyle,
+                  ))
+                : Text("")
           ],
         ),
         <Widget>[
-          Padding(
-            padding: const EdgeInsets.only(right: 15.0),
-            child: IconButton(
-                onPressed: () {
-                  print(adapterObj);
-                  if (toField.text != "" &&
-                      subjectFieldController.text != "" &&
-                      msgBodyController.text != "") {
-                    dbObj.insertData(
-                        "Insert into Mail(subject,body,trash,important,spam,isRead,date,senderID,receiverID) values('${subjectFieldController.text}','${msgBodyController.text}','${false}','${false}','${false}','${false}','${adapterObj}','${globalVariables.currentUser!.userID}','${recieverUserID}')");
-                   var snackBar = const SnackBar(
-                      content: Text('Message sent !!'),
-                      backgroundColor: Colors.green,
-                      duration: Duration(seconds: 2),
-                      elevation: 10,
-                    );
-                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                    notifiyIns.createNotification("Email Sent to ${toField.text}","You Have Sucessfully Sent an Email !");
-                    setState(() {
-                      toIsEmpty = false;
-                      subjIsEmpty = false;
-                      msgBodyIsEmpty = false;
-                      Navigator.pop(context);
-                    });
-                  } else if (toIsEmpty == true ||
-                      subjIsEmpty == true ||
-                      msgBodyIsEmpty == true) {
-                    var snackBar = const SnackBar(
-                      content: Text('Please All fields !'),
-                      backgroundColor: Colors.red,
-                      duration: Duration(seconds: 3),
-                      elevation: 10,
-                    );
-                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                  } else {
-                    setState(() {
-                      toIsEmpty = true;
-                      subjIsEmpty = true;
-                      msgBodyIsEmpty = true;
-                    });
-                  }
-                  
-                },
-                icon: const Icon(
-                  Icons.send_rounded,
-                  size: 40,
-                  color: Colors.black,
-                )),
-          )
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 10),
+                child: IconButton(
+                    onPressed: () {
+                      if (toField.text != "" &&
+                          subjectFieldController.text != "" &&
+                          msgBodyController.text != "") {
+                        dbObj.insertData(
+                            "Insert into Mail(subject,body,trash,important,spam,isRead,date,senderID,receiverID) values('${subjectFieldController.text}','${msgBodyController.text}','${false}','${false}','${false}','${false}','${adapterObj}','${globalVariables.currentUser!.userID}','${recieverUserID}')");
+                        var snackBar = const SnackBar(
+                          content: Text('Message sent !!'),
+                          backgroundColor: Colors.green,
+                          duration: Duration(seconds: 2),
+                          elevation: 10,
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        notifiyIns.createNotification(
+                            "Email Sent to ${toField.text}",
+                            "You Have Sucessfully Sent an Email !");
+                        setState(() {
+                          toIsEmpty = false;
+                          subjIsEmpty = false;
+                          msgBodyIsEmpty = false;
+                          Navigator.pop(context);
+                        });
+                      } else if (toIsEmpty == true ||
+                          subjIsEmpty == true ||
+                          msgBodyIsEmpty == true) {
+                        var snackBar = const SnackBar(
+                          content: Text('Please All fields !'),
+                          backgroundColor: Colors.red,
+                          duration: Duration(seconds: 3),
+                          elevation: 10,
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      } else {
+                        setState(() {
+                          toIsEmpty = true;
+                          subjIsEmpty = true;
+                          msgBodyIsEmpty = true;
+                        });
+                      }
+                    },
+                    icon: const Icon(
+                      Icons.send_rounded,
+                      size: 40,
+                      color: Colors.black,
+                    )),
+              ),
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 1),
+                    child: IconButton(
+                        onPressed: () async {
+                          timePick = await showTimePicker(
+                              context: context, initialTime: TimeOfDay.now());
+                          print(timePick.format(context));
+                        },
+                        icon: const Icon(
+                          Icons.watch_later_rounded,
+                          color: Colors.black,
+                          size: 27,
+                        )),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 2),
+                    child: IconButton(
+                        onPressed: () async {
+                          datePick = await showDatePicker(
+                              context: context,
+                              firstDate: DateTime(2002),
+                              initialDate: DateTime.now(),
+                              lastDate: DateTime(2053));
+
+                          setState(() {
+                            collectedDateTime = DateTimeAdapter(DateTime.parse(
+                                "${datePick.toString().substring(0, 10)} "
+                                "${timePick.format(context).toString().substring(0, 5)}"));
+                          });
+                        },
+                        icon: const Icon(
+                          Icons.calendar_month,
+                          color: Colors.black,
+                          size: 27,
+                        )),
+                  ),
+                ],
+              )
+            ],
+          ),
         ],
       ),
       body: Stack(
