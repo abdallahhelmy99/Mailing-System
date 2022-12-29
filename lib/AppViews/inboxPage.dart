@@ -221,14 +221,11 @@ class _inboxPageState extends State<inboxPage> {
                     padding: EdgeInsets.only(
                         top: height / 64, right: width / 32, left: width / 128),
                     child: AnimSearchBar(
-                      onSubmitted:  (p0) {
-                        
-                      },
+                      onSubmitted: (p0) {},
                       color: Colors.grey[350],
                       width: width - 30,
                       textController: text,
                       onSuffixTap: () {},
-                       onSubmitted: (String ) {  },
                     ),
                   ),
                 ],
@@ -359,9 +356,10 @@ class _inboxPageState extends State<inboxPage> {
     String? lname;
     String? fullName;
     for (int index = 0; index < globalVariables.Users!.length; index++) {
-      if (globalVariables.Users![index].userID == x)
+      if (globalVariables.Users![index].userID == x) {
         fname = globalVariables.Users![index].fname;
-      lname = globalVariables.Users![index].lname;
+        lname = globalVariables.Users![index].lname;
+      }
       fullName = "${fname} ${lname}";
     }
     return fullName;
