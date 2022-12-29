@@ -75,100 +75,56 @@ class _SendMessageState extends State<SendMessage> {
           ],
         ),
         <Widget>[
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 10),
-                child: IconButton(
-                    onPressed: () {
-                      if (toField.text != "" &&
-                          subjectFieldController.text != "" &&
-                          msgBodyController.text != "") {
-                        dbObj.insertData(
-                            "Insert into Mail(subject,body,trash,important,spam,isRead,date,senderID,receiverID) values('${subjectFieldController.text}','${msgBodyController.text}','${false}','${false}','${false}','${false}','${adapterObj}','${globalVariables.currentUser!.userID}','${recieverUserID}')");
-                        var snackBar = const SnackBar(
-                          content: Text('Message sent !!'),
-                          backgroundColor: Colors.green,
-                          duration: Duration(seconds: 2),
-                          elevation: 10,
-                        );
-                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                        notifiyIns.createNotification(
-                            "Email Sent to ${toField.text}",
-                            "You Have Sucessfully Sent an Email !");
-                        setState(() {
-                          toIsEmpty = false;
-                          subjIsEmpty = false;
-                          msgBodyIsEmpty = false;
-                          Navigator.pop(context);
-                        });
-                      } else if (toIsEmpty == true ||
-                          subjIsEmpty == true ||
-                          msgBodyIsEmpty == true) {
-                        var snackBar = const SnackBar(
-                          content: Text('Please All fields !'),
-                          backgroundColor: Colors.red,
-                          duration: Duration(seconds: 3),
-                          elevation: 10,
-                        );
-                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                      } else {
-                        setState(() {
-                          toIsEmpty = true;
-                          subjIsEmpty = true;
-                          msgBodyIsEmpty = true;
-                        });
-                      }
-                    },
-                    icon: const Icon(
-                      Icons.send_rounded,
-                      size: 40,
-                      color: Colors.black,
-                    )),
-              ),
-              Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(right: 1),
-                    child: IconButton(
-                        onPressed: () async {
-                          timePick = await showTimePicker(
-                              context: context, initialTime: TimeOfDay.now());
-                          print(timePick.format(context));
-                        },
-                        icon: const Icon(
-                          Icons.watch_later_rounded,
-                          color: Colors.black,
-                          size: 27,
-                        )),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 2),
-                    child: IconButton(
-                        onPressed: () async {
-                          datePick = await showDatePicker(
-                              context: context,
-                              firstDate: DateTime(2002),
-                              initialDate: DateTime.now(),
-                              lastDate: DateTime(2053));
-
-                          setState(() {
-                            collectedDateTime = DateTimeAdapter(DateTime.parse(
-                                "${datePick.toString().substring(0, 10)} "
-                                "${timePick.format(context).toString().substring(0, 5)}"));
-                          });
-                        },
-                        icon: const Icon(
-                          Icons.calendar_month,
-                          color: Colors.black,
-                          size: 27,
-                        )),
-                  ),
-                ],
-              )
-            ],
-          ),
+          Padding(
+            padding: const EdgeInsets.only(right: 15.0),
+            child: IconButton(
+                onPressed: () {
+                  print(adapterObj);
+                  if (toField.text != "" &&
+                      subjectFieldController.text != "" &&
+                      msgBodyController.text != "") {
+                    dbObj.insertData(
+                        "Insert into Mail(subject,body,trash,important,spam,isRead,draft,date,senderID,receiverID,isSent) values('${subjectFieldController.text}','${msgBodyController.text}','${false}','${false}','${false}','${false}','${false}','${adapterObj}','${globalVariables.currentUser!.userID}','${recieverUserID}', '${true}')");
+                    var snackBar = const SnackBar(
+                      content: Text('Message sent !!'),
+                      backgroundColor: Colors.green,
+                      duration: Duration(seconds: 2),
+                      elevation: 10,
+                    );
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    notifiyIns.createNotification(
+                        "Email Sent to ${toField.text}",
+                        "You Have Sucessfully Sent an Email !");
+                    setState(() {
+                      toIsEmpty = false;
+                      subjIsEmpty = false;
+                      msgBodyIsEmpty = false;
+                      Navigator.pop(context);
+                    });
+                  } else if (toIsEmpty == true ||
+                      subjIsEmpty == true ||
+                      msgBodyIsEmpty == true) {
+                    var snackBar = const SnackBar(
+                      content: Text('Please All fields !'),
+                      backgroundColor: Colors.red,
+                      duration: Duration(seconds: 3),
+                      elevation: 10,
+                    );
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  } else {
+                    setState(() {
+                      toIsEmpty = true;
+                      subjIsEmpty = true;
+                      msgBodyIsEmpty = true;
+                    });
+                  }
+                },
+                icon: const Icon(
+                  Icons.send_rounded,
+                  size: 40,
+                  color: Colors.black,
+                )),
+          )
         ],
       ),
       body: Stack(
@@ -183,41 +139,43 @@ class _SendMessageState extends State<SendMessage> {
                 shadowColor: Colors.black,
                 color: Colors.white,
                 elevation: 5,
-                child: TextField(
-                    cursorColor: Colors.black,
-                    controller: toField,
-                    onSubmitted: (value) {
-                      for (int i = 0; i < globalVariables.Users!.length; i++) {
-                        if (globalVariables.Users![i].email == toField.text) {
-                          recieverUserID = globalVariables.Users![i].userID!;
-                        }
+                child: InkWell(
+                  onFocusChange: (value) {
+                    for (int i = 0; i < globalVariables.Users!.length; i++) {
+                      if (globalVariables.Users![i].email == toField.text) {
+                        recieverUserID = globalVariables.Users![i].userID!;
                       }
-                    },
-                    obscureText: false,
-                    decoration: InputDecoration(
-                        focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: const BorderSide(
-                                color: Color.fromARGB(0, 83, 72, 72),
-                                width: 0)),
-                        fillColor: Colors.white,
-                        filled: true,
-                        enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: const BorderSide(
-                                color: Colors.transparent, width: 0)),
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10)),
-                        prefixIcon: const Padding(
-                          padding: EdgeInsets.all(15.0),
-                          child: Text(
-                            "To :",
-                            style: TextStyle(
-                                color: Colors.grey,
-                                fontFamily: "Cabin",
-                                fontSize: 15),
-                          ),
-                        ))),
+                    }
+                  },
+                  child: TextField(
+                      cursorColor: Colors.black,
+                      controller: toField,
+                      obscureText: false,
+                      decoration: InputDecoration(
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: const BorderSide(
+                                  color: Color.fromARGB(0, 83, 72, 72),
+                                  width: 0)),
+                          fillColor: Colors.white,
+                          filled: true,
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: const BorderSide(
+                                  color: Colors.transparent, width: 0)),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10)),
+                          prefixIcon: const Padding(
+                            padding: EdgeInsets.all(15.0),
+                            child: Text(
+                              "To :",
+                              style: TextStyle(
+                                  color: Colors.grey,
+                                  fontFamily: "Cabin",
+                                  fontSize: 15),
+                            ),
+                          ))),
+                ),
               ),
             ),
           ),

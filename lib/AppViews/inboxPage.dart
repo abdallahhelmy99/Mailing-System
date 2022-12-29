@@ -26,12 +26,13 @@ class inboxPage extends StatefulWidget {
 class _inboxPageState extends State<inboxPage> {
   var size, height, width;
   TextEditingController text = new TextEditingController();
-  var selectedfolder = 'Inbox';
+  String selectedfolder = 'Inbox';
   dbHelper helper = dbHelper();
+  globalVariables x = globalVariables();
 
   @override
   void initState() {
-    globalVariables.readMyMails();
+    globalVariables.MyMails = [];
     super.initState();
   }
 
@@ -55,7 +56,9 @@ class _inboxPageState extends State<inboxPage> {
           null,
           <Widget>[
             IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, 'trash');
+                },
                 icon: Icon(
                   Icons.delete_outlined, //Trash
                   color: Colors.black,
@@ -64,7 +67,8 @@ class _inboxPageState extends State<inboxPage> {
                 splashRadius: 25),
             IconButton(
                 onPressed: () {
-                  Navigator.pop(context);
+                  Navigator.pushNamedAndRemoveUntil(
+                      context, 'login', (Route route) => false);
                   globalVariables.dispose();
                 },
                 icon: Icon(
@@ -100,7 +104,7 @@ class _inboxPageState extends State<inboxPage> {
           Container(
               alignment: Alignment.center,
               child: Text(
-                "Inbox", //selectedfolder
+                "${selectedfolder}", //selectedfolder
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 45, fontWeight: FontWeight.bold),
               )),
@@ -117,7 +121,7 @@ class _inboxPageState extends State<inboxPage> {
               Container(
                   alignment: Alignment.center,
                   child: Text(
-                    "${globalVariables.MyMails!.length} " +
+                   "${globalVariables.MyMails!.length} " +
                         "Unread Messages", //Hena lazem nafs el counter
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
@@ -136,8 +140,14 @@ class _inboxPageState extends State<inboxPage> {
                     backgroundColor: Colors.white,
                     radius: 25,
                     child: IconButton(
-                      icon: Icon(Icons.drafts, color: Colors.black),
-                      onPressed: () {},
+                      icon: Icon(Icons.drafts, color: Colors.red),
+                      onPressed: () {
+                        setState(() {
+                          globalVariables.MyMails!.clear(); 
+                          globalVariables.readInbox();
+                          selectedfolder = 'Inbox';
+                        });
+                      },
                       iconSize: 30,
                     )),
                 SizedBox(
@@ -148,7 +158,13 @@ class _inboxPageState extends State<inboxPage> {
                     radius: 25,
                     child: IconButton(
                       icon: Icon(Icons.folder, color: Colors.black),
-                      onPressed: () {},
+                      onPressed: () {
+                         setState(() {
+                          globalVariables.MyMails!.clear();
+                          globalVariables.readDraft();
+                          selectedfolder = 'Drafts';
+                        });
+                      },
                       iconSize: 30,
                     )),
                 SizedBox(
@@ -159,7 +175,13 @@ class _inboxPageState extends State<inboxPage> {
                     radius: 25,
                     child: IconButton(
                       icon: Icon(Icons.folder_delete, color: Colors.black),
-                      onPressed: () {},
+                      onPressed: () {
+                        setState(() {
+                          globalVariables.MyMails!.clear();
+                          globalVariables.readTrash();
+                          selectedfolder = 'Trash';
+                        });
+                      },
                       iconSize: 30,
                     )),
                 SizedBox(
@@ -169,8 +191,15 @@ class _inboxPageState extends State<inboxPage> {
                     backgroundColor: Colors.white,
                     radius: 25,
                     child: IconButton(
-                      icon: Icon(Icons.folder_special, color: Colors.black),
-                      onPressed: () {},
+                      icon: Icon(Icons.folder_special, color: Colors.orange),
+                      onPressed: () {
+                        setState(() {
+                          globalVariables.MyMails!.clear();
+                          globalVariables.readImportant();
+                          selectedfolder = 'Important';
+                        });
+                                                
+                      },
                       iconSize: 30,
                     )),
                 SizedBox(
@@ -181,7 +210,13 @@ class _inboxPageState extends State<inboxPage> {
                     radius: 25,
                     child: IconButton(
                       icon: Icon(Icons.send_rounded, color: Colors.black),
-                      onPressed: () {},
+                      onPressed: () {
+                       setState(() {
+                          globalVariables.MyMails!.clear();
+                          globalVariables.readSent();
+                          selectedfolder = 'Sent';
+                        });
+                      },
                       iconSize: 30,
                     )),
                 SizedBox(
@@ -194,6 +229,9 @@ class _inboxPageState extends State<inboxPage> {
                       icon: Icon(Icons.contacts, color: Colors.black),
                       onPressed: () {
                         Navigator.pushNamed(context, 'contacts');
+                        setState(() {
+                          helper.readMyContacts();
+                        });
                         //helper.insertData('INSERT INTO mail (id,subject,from,to,cc,bcc,attachment,mailBody) VALUES (1,"test","1","1","test","test","test","test")');
                       },
                       iconSize: 30,
@@ -236,113 +274,149 @@ class _inboxPageState extends State<inboxPage> {
               itemCount: globalVariables.MyMails!.length,
               physics: BouncingScrollPhysics(),
               itemBuilder: (context, index) {
-                return Slidable(
-                  direction: Axis.horizontal,
-                  endActionPane: ActionPane(
-                    motion: ScrollMotion(),
-                    extentRatio: 1,
-                    children: [
-                      SlidableAction(
-                        onPressed: (context) {}, //DELETE QUERY SQL + setState
-                        icon: Icons.delete,
-                        label: "Trash",
-                        backgroundColor: Colors.red,
-                      ),
-                      SlidableAction(
-                        onPressed: (context) {}, //FAVORITE QUERY SQL + setState
-                        icon: Icons.star,
-                        label: "Important",
-                        backgroundColor: Colors.green,
-                      ),
-                      SlidableAction(
-                        onPressed: (context) {},
-                        icon: Icons.drafts,
-                        label: "Draft",
-                        backgroundColor: Colors.blue,
-                      ),
-                      SlidableAction(
-                        onPressed: (context) {},
-                        icon: Icons.folder_off_outlined,
-                        label: "Spam",
-                        backgroundColor: Colors.grey,
-                        foregroundColor: Colors.white,
-                      ),
-                    ],
-                  ),
-                  startActionPane: ActionPane(
-                    extentRatio: 0.3,
-                    motion: ScrollMotion(),
-                    children: [
-                      SlidableAction(
-                        onPressed: (context) {},
-                        icon: Icons.push_pin_outlined,
-                        label: "Pin",
-                        backgroundColor: Colors.orange,
-                        foregroundColor: Colors.white,
-                      ),
-                    ],
-                  ),
-                  child: Stack(
-                    children: [
-                      Container(
-                        padding:
-                            EdgeInsets.only(left: width / 64, top: height / 82),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
+                if (globalVariables.MyMails!.isNotEmpty){
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, 'mail'); //Hena lazem a-pass
+                    //globalVariables.selectedMail = globalVariables.MyMails![index];
+                  },
+                  child: Slidable(
+                    direction: Axis.horizontal,
+                    endActionPane: ActionPane(
+                      motion: ScrollMotion(),
+                      extentRatio: 1,
+                      children: [
+                        SlidableAction(
+                          onPressed: (context) {
+                            //update query
+                            setState(() {
+                              helper.updateData("UPDATE mail SET trash = 'true' WHERE emailID = ${globalVariables.MyMails![index].emailID}");
+                            });
+                          }, //DELETE QUERY SQL + setState
+                          icon: Icons.delete,
+                          label: "Trash",
+                          backgroundColor: Colors.red,
                         ),
-                        height: height / 6,
-                        width: width,
-                        alignment: Alignment.topLeft,
-                        child: Padding(
-                            padding: EdgeInsets.only(
-                                top: height / 64, left: width / 64),
-                            child: Icon(
-                              Icons.circle,
-                              color: Colors.red,
-                              size: 20,
-                            )),
-                      ),
-                      Padding(
-                        padding:
-                            EdgeInsets.only(left: width / 10, top: height / 40),
-                        child: Text(
-                          "${returnName(globalVariables.MyMails![index].senderID!)}",
-                          // "${globalVariables.Users![index].fname }" //Sender Name - "${snapshot.data[index]['task']}"
-                          //for (int i = 0; i < globalVariables.Users!.length; i++)
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
+                        SlidableAction(
+                          onPressed: (context) {
+                            setState(() {
+                              helper.updateData("UPDATE mail SET important = 'true' WHERE emailID = ${globalVariables.MyMails![index].emailID}");
+                            });
+                          }, //FAVORITE QUERY SQL + setState
+                          icon: Icons.star,
+                          label: "Important",
+                          backgroundColor: Colors.green,
                         ),
-                      ),
-                      Padding(
-                        padding:
-                            EdgeInsets.only(left: width / 10, top: height / 18),
-                        child: Text(
-                          "${globalVariables.MyMails![index].subject}", //Mail Subject
-                          style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.bold),
+                        SlidableAction(
+                          onPressed: (context) {
+                            setState(() {
+                              helper.updateData("UPDATE mail SET draft = 'true' WHERE emailID = ${globalVariables.MyMails![index].emailID}");
+                            });
+                          },
+                          icon: Icons.drafts,
+                          label: "Draft",
+                          backgroundColor: Colors.blue,
                         ),
-                      ),
-                      Padding(
-                        padding:
-                            EdgeInsets.only(left: width / 10, top: height / 12),
-                        child: Text(
-                          "${globalVariables.MyMails![index].body}",
-                          style: TextStyle(
-                              fontSize: 14, fontWeight: FontWeight.normal),
+                        SlidableAction(
+                          onPressed: (context) {
+                            setState(() {
+                              helper.updateData("UPDATE mail SET spam = 'true' WHERE emailID = ${globalVariables.MyMails![index].emailID}");
+                            });
+                          },
+                          icon: Icons.folder_off_outlined,
+                          label: "Spam",
+                          backgroundColor: Colors.grey,
+                          foregroundColor: Colors.white,
                         ),
-                      ),
-                      Padding(
-                        padding:
-                            EdgeInsets.only(top: height / 38, left: width - 70),
-                        child: Text(
-                          "${globalVariables.MyMails![index].date}",
-                          style: TextStyle(
-                              fontSize: 14, fontWeight: FontWeight.normal),
+                      ],
+                    ),
+                    startActionPane: ActionPane(
+                      extentRatio: 0.6,
+                      motion: ScrollMotion(),
+                      children: [
+                        SlidableAction(
+                          onPressed: (context) {},
+                          icon: Icons.push_pin_outlined,
+                          label: "Pin",
+                          backgroundColor: Colors.orange,
+                          foregroundColor: Colors.white,
                         ),
-                      ),
-                    ],
+                         SlidableAction(
+                          onPressed: (context) {},
+                          icon: Icons.push_pin_outlined,
+                          label: "Delete",
+                          backgroundColor: Colors.red,
+                          foregroundColor: Colors.white,
+                        ),
+                      ],
+                    ),
+                    child: Stack(
+                      children: [
+                        Container(
+                          padding:
+                              EdgeInsets.only(left: width / 64, top: height / 82),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                          ),
+                          height: height / 6,
+                          width: width,
+                          alignment: Alignment.topLeft,
+                          child: Padding(
+                              padding: EdgeInsets.only(
+                                  top: height / 64, left: width / 64),
+                              child: Icon(
+                                Icons.circle,
+                                color: Colors.red,
+                                size: 20,
+                              )),
+                        ),
+                        Padding(
+                          padding:
+                              EdgeInsets.only(left: width / 10, top: height / 40),
+                          child: Text(
+                            "${returnName(globalVariables.MyMails![index].senderID!)}",
+                            // "${globalVariables.Users![index].fname }" //Sender Name - "${snapshot.data[index]['task']}"
+                            //for (int i = 0; i < globalVariables.Users!.length; i++)
+                            style: TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        Padding(
+                          padding:
+                              EdgeInsets.only(left: width / 10, top: height / 16),
+                          child: Text(
+                            "${globalVariables.MyMails![index].subject}", //Mail Subject
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        Padding(
+                          padding:
+                              EdgeInsets.only(left: width / 10, top: height / 9.5),
+                          child: Text(
+                            "${globalVariables.MyMails![index].body}",
+                            style: TextStyle(
+                                fontSize: 14, fontWeight: FontWeight.normal),
+                          ),
+                        ),
+                        Padding(
+                          padding:
+                              EdgeInsets.only(top: height / 38, left: width - 95),
+                          child: Text(
+                            "${globalVariables.MyMails![index].date}",
+                            style: TextStyle(
+                                fontSize: 13, fontWeight: FontWeight.normal),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 );
+                }
+                else{
+                  //return snackbar here
+                  return SnackBar(content: Text("No Mails Found"),);
+                }
               },
             ),
           )
@@ -356,9 +430,10 @@ class _inboxPageState extends State<inboxPage> {
     String? lname;
     String? fullName;
     for (int index = 0; index < globalVariables.Users!.length; index++) {
-      if (globalVariables.Users![index].userID == x)
+      if (globalVariables.Users![index].userID == x){
         fname = globalVariables.Users![index].fname;
       lname = globalVariables.Users![index].lname;
+      }
       fullName = "${fname} ${lname}";
     }
     return fullName;
