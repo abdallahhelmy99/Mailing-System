@@ -25,7 +25,9 @@ class EmailScreen2 extends StatelessWidget {
         Text(''),
         [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pop(context);
+            },
             icon: Icon(
               Icons.arrow_back,
               color: Colors.black,

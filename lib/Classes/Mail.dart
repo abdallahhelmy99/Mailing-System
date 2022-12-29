@@ -10,6 +10,7 @@ class Mail {
   String? spam;
   String? isRead;
   String? isSent;
+  String? draft;
 
   Mail(
       {
@@ -23,7 +24,9 @@ class Mail {
       required this.isRead,
       required this.recieverID,
       required this.senderID,
-      required this.isSent
+      required this.isSent,
+      required this.draft,
+
       });
 
   Map<String, dynamic> toMap() {
@@ -38,6 +41,8 @@ class Mail {
       'isRead': isRead,
       'senderID': senderID,
       'receiverID': recieverID,
+      'isSent': isSent,
+      'draft': draft,
       //'contacts': contacts,
     };
   }

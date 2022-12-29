@@ -73,7 +73,7 @@ class _SendMessageState extends State<SendMessage> {
                       subjectFieldController.text != "" &&
                       msgBodyController.text != "") {
                     dbObj.insertData(
-                        "Insert into Mail(subject,body,trash,important,spam,isRead,date,senderID,receiverID) values('${subjectFieldController.text}','${msgBodyController.text}','${false}','${false}','${false}','${false}','${adapterObj}','${globalVariables.currentUser!.userID}','${recieverUserID}')");
+                        "Insert into Mail(subject,body,trash,important,spam,isRead,draft,date,senderID,receiverID,isSent) values('${subjectFieldController.text}','${msgBodyController.text}','${false}','${false}','${false}','${false}','${false}','${adapterObj}','${globalVariables.currentUser!.userID}','${recieverUserID}', '${true}')");
                    var snackBar = const SnackBar(
                       content: Text('Message sent !!'),
                       backgroundColor: Colors.green,
