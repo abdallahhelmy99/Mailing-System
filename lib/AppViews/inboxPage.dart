@@ -8,6 +8,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:badges/badges.dart' as bd;
 import 'package:anim_search_bar/anim_search_bar.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:mailing_system/AppViews/mail_Screen.dart';
 import 'package:mailing_system/AppViews/profile_screen.dart';
 import 'package:mailing_system/Classes/Mail.dart';
 import 'package:mailing_system/Classes/User.dart';
@@ -25,14 +26,17 @@ class inboxPage extends StatefulWidget {
 
 class _inboxPageState extends State<inboxPage> {
   var size, height, width;
-  TextEditingController text = new TextEditingController();
+  TextEditingController search = new TextEditingController();
   String selectedfolder = 'Inbox';
   dbHelper helper = dbHelper();
   globalVariables x = globalVariables();
+  bool pinned = false;
+  List searchResults = [];
 
   @override
   void initState() {
     globalVariables.MyMails = [];
+    globalVariables.readMyContacts();
     super.initState();
   }
 
@@ -57,16 +61,6 @@ class _inboxPageState extends State<inboxPage> {
           <Widget>[
             IconButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, 'trash');
-                },
-                icon: Icon(
-                  Icons.delete_outlined, //Trash
-                  color: Colors.black,
-                  size: 25,
-                ),
-                splashRadius: 25),
-            IconButton(
-                onPressed: () {
                   Navigator.pushNamedAndRemoveUntil(
                       context, 'login', (Route route) => false);
                   globalVariables.dispose();
@@ -81,12 +75,12 @@ class _inboxPageState extends State<inboxPage> {
           Container(
             alignment: Alignment.centerRight,
             child: CircleAvatar(
-                backgroundImage: NetworkImage(
-                    'https://lh3.googleusercontent.com/a/AEdFTp7HB1ZjlorTV0wExaxhYEFjVlpn5ODkxRXx6aSHnw=s288-p-rw-no'),
-                radius: 26,
+              backgroundImage: AssetImage('assets/images/profile.png'),
+                radius: 22,
                 backgroundColor: Color.fromARGB(255, 239, 239, 239),
                 child: IconButton(
                   icon: Icon(color: Colors.transparent, Icons.person),
+
                   onPressed: () {
                     Navigator.pushNamed(context, 'profile');
                   },
@@ -140,10 +134,10 @@ class _inboxPageState extends State<inboxPage> {
                     backgroundColor: Colors.white,
                     radius: 25,
                     child: IconButton(
-                      icon: Icon(Icons.drafts, color: Colors.red),
+                      icon: Icon(Icons.drafts, color: Colors.black),
                       onPressed: () {
                         setState(() {
-                          globalVariables.MyMails!.clear(); 
+                          globalVariables.MyMails!.clear();
                           globalVariables.readInbox();
                           selectedfolder = 'Inbox';
                         });
@@ -191,7 +185,7 @@ class _inboxPageState extends State<inboxPage> {
                     backgroundColor: Colors.white,
                     radius: 25,
                     child: IconButton(
-                      icon: Icon(Icons.folder_special, color: Colors.orange),
+                      icon: Icon(Icons.folder_special, color: Colors.black),
                       onPressed: () {
                         setState(() {
                           globalVariables.MyMails!.clear();
@@ -209,12 +203,12 @@ class _inboxPageState extends State<inboxPage> {
                     backgroundColor: Colors.white,
                     radius: 25,
                     child: IconButton(
-                      icon: Icon(Icons.send_rounded, color: Colors.black),
+                      icon: Icon(Icons.folder_off_outlined, color: Colors.black),
                       onPressed: () {
                        setState(() {
                           globalVariables.MyMails!.clear();
-                          globalVariables.readSent();
-                          selectedfolder = 'Sent';
+                          globalVariables.readSpam();
+                          selectedfolder = 'Spam';
                         });
                       },
                       iconSize: 30,
@@ -259,11 +253,44 @@ class _inboxPageState extends State<inboxPage> {
                     padding: EdgeInsets.only(
                         top: height / 64, right: width / 32, left: width / 128),
                     child: AnimSearchBar(
-                      onSubmitted: (p0) {},
+                      onSubmitted: (p0) {
+                          
+                        
+                      },
+                      helpText: "Search Mails By Subject",
                       color: Colors.grey[350],
                       width: width - 30,
-                      textController: text,
-                      onSuffixTap: () {},
+                      textController: search,
+                      suffixIcon: Icon(
+                        Icons.search,
+                        color: Colors.black,
+                      ),
+                      onSuffixTap: () {
+                        for ( int i = 0; i < globalVariables.MyMails!.length; i++){
+                            if (globalVariables.MyMails![i].subject!.contains(search.text.toString())){
+                              searchResults.add(globalVariables.MyMails![i].subject.toString());
+                            }
+                           
+                        }
+                        showDialog(
+                          context: context, 
+                          builder: (context) {
+                            return AlertDialog(
+                              title: Text("Search Results"),
+                              content: Text(searchResults.toString()),
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                    searchResults.clear();
+                                  }, 
+                                  child: Text("OK")
+                                )
+                              ],
+                            );
+                          } 
+                          );
+                      }
                     ),
                   ),
                 ],
@@ -275,9 +302,15 @@ class _inboxPageState extends State<inboxPage> {
               physics: BouncingScrollPhysics(),
               itemBuilder: (context, index) {
                 if (globalVariables.MyMails!.isNotEmpty){
+                  
                 return GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(context, 'mail'); //Hena lazem a-pass
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => EmailScreen2(mail: globalVariables.MyMails![index]),
+                      ),
+                    );
                     //globalVariables.selectedMail = globalVariables.MyMails![index];
                   },
                   child: Slidable(
@@ -311,6 +344,9 @@ class _inboxPageState extends State<inboxPage> {
                           onPressed: (context) {
                             setState(() {
                               helper.updateData("UPDATE mail SET draft = 'true' WHERE emailID = ${globalVariables.MyMails![index].emailID}");
+                              globalVariables.MyMails!.clear();
+                              globalVariables.readDraft();
+                              selectedfolder = 'Drafts';
                             });
                           },
                           icon: Icons.drafts,
@@ -335,15 +371,34 @@ class _inboxPageState extends State<inboxPage> {
                       motion: ScrollMotion(),
                       children: [
                         SlidableAction(
-                          onPressed: (context) {},
+                          onPressed: (context) {
+                            setState(() {
+                              //swap selected mail with the first mail
+                                var temp = globalVariables.MyMails![0];
+                                globalVariables.MyMails![0] = globalVariables.MyMails![index];
+                                globalVariables.MyMails![index] = temp;
+                            
+
+                                // var temp = globalVariables.MyMails![globalVariables.MyMails!.length - 1];
+                                // globalVariables.MyMails![globalVariables.MyMails!.length - 1] = globalVariables.MyMails![index];
+                                // globalVariables.MyMails![index] = temp;
+                            });
+                          },
                           icon: Icons.push_pin_outlined,
                           label: "Pin",
                           backgroundColor: Colors.orange,
                           foregroundColor: Colors.white,
                         ),
                          SlidableAction(
-                          onPressed: (context) {},
-                          icon: Icons.push_pin_outlined,
+                          onPressed: (context) {
+                            setState(() {
+                              helper.deleteData("DELETE FROM mail WHERE emailID = ${globalVariables.MyMails![index].emailID}");
+                              globalVariables.MyMails!.clear(); 
+                              globalVariables.readInbox();
+                              selectedfolder = 'Inbox';
+                          });
+                          },
+                          icon: Icons.delete,
                           label: "Delete",
                           backgroundColor: Colors.red,
                           foregroundColor: Colors.white,

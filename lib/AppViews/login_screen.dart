@@ -34,7 +34,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    factoryObj.createNotification("body", "title");
+    factoryObj.createNotification("Login Successfull", "Mailing System");
     globalVariables.readData();
     return Scaffold(
       appBar: appBarObj.appBar(

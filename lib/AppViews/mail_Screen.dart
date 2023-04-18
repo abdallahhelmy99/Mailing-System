@@ -9,8 +9,15 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:mailing_system/SharedMaterial/shared_colors.dart';
 import 'package:mailing_system/SharedMaterial/shared_icons.dart';
 import 'package:mailing_system/SharedMaterial/shared_widgets.dart';
+import 'package:mailing_system/SharedMaterial/globals.dart';
+
+import '../Classes/Mail.dart';
 
 class EmailScreen2 extends StatelessWidget {
+   EmailScreen2({super.key, required this.mail});
+
+  // Declare a field that holds the mail.
+  final Mail mail;
   var size, height, width;
 
   @override
@@ -67,8 +74,7 @@ class EmailScreen2 extends StatelessWidget {
             children: [
               Padding(padding: EdgeInsets.only(left: width)),
               CircleAvatar(
-                  backgroundImage: NetworkImage(
-                      'https://lh3.googleusercontent.com/a/AEdFTp7HB1ZjlorTV0wExaxhYEFjVlpn5ODkxRXx6aSHnw=s288-p-rw-no'),
+                  backgroundImage: AssetImage('assets/images/profile.png') ,
                   radius: 55,
                   backgroundColor: Color.fromARGB(255, 239, 239, 239)),
               SizedBox(
@@ -76,7 +82,7 @@ class EmailScreen2 extends StatelessWidget {
               ),
               Container(
                 child: Text(
-                  'Sender Name',
+                  '${returnName(mail.senderID!)}',
                   style: TextStyle(
                       fontWeight: FontWeight.w400,
                       fontSize: 28,
@@ -87,7 +93,7 @@ class EmailScreen2 extends StatelessWidget {
                 height: height / 128,
               ),
               Text(
-                "8:12 PM",
+                "${mail.date}",
                 style: TextStyle(fontSize: 15, fontWeight: FontWeight.w300),
               ),
             ],
@@ -110,10 +116,10 @@ class EmailScreen2 extends StatelessWidget {
                   child: Container(
                     width: width / 2,
                     child: Text(
-                      'Email Subject',
+                      'Subject: ${mail.subject}',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                          fontSize: 32,
+                          fontSize: 24,
                           fontFamily: "SourceSansPro",
                           fontWeight: FontWeight.bold),
                     ),
@@ -143,7 +149,7 @@ class EmailScreen2 extends StatelessWidget {
                 child: SingleChildScrollView(
                   physics: BouncingScrollPhysics(),
                   child: Text(
-                    'Each member should be able to add information about their basic profile, work experience, education, e o Any user of our system should be able to search other members, groups or pages by their name.o Members should be able to send and accept/reject friend requests from other members.o Members should be able to follow other members without becoming their friend.o Members should be able to create groups and pages, as well as join already created groups, and follow pages.o Members should be able to create new posts to share with their friends.o Members should be able to add comments to posts, as well as like or share a post or comment..o The system should send a notification to a member whenever there is a new message or friend request or comment on their post o Members should be able to search through posts for a word.Member: All members can search for other members, groups, pages, or posts, asAdmin: Mainly responsible for admin functions like blocking and unblocking aSystem: Mainly responsible for sending notifications for new messages, friend Each member should be able to add information about their basic profile, work experience, education, e o Any user of our system should be able to search other members, groups or pages by their name.o Members should be able to send and accept/reject friend requests from other members.o Members should be able to follow other members without becoming their friend.o Members should be able to create groups and pages, as well as join already Each member should be able to add information about their basic profile, work experience, ed',
+                    '${mail.body}',
                     style: TextStyle(fontSize: 18, fontFamily: "SourceSansPro"),
                   ),
                 )),
@@ -175,5 +181,18 @@ class EmailScreen2 extends StatelessWidget {
         ),
       ]),
     );
+  }
+   String? returnName(int x) {
+    String? fname;
+    String? lname;
+    String? fullName;
+    for (int index = 0; index < globalVariables.Users!.length; index++) {
+      if (globalVariables.Users![index].userID == x) {
+        fname = globalVariables.Users![index].fname;
+        lname = globalVariables.Users![index].lname;
+        fullName = "${fname} ${lname}";
+      }
+    }
+    return fullName;
   }
 }

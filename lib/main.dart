@@ -17,6 +17,7 @@ import 'package:mailing_system/AppViews/splash_screen.dart';
 import 'package:mailing_system/SharedMaterial/globals.dart';
 import 'SharedMaterial/globals.dart';
 import 'dbHelper.dart';
+import 'SharedMaterial/shared_colors.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -35,7 +36,9 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.grey,
+        accentColor: Colors.black
+
       ),
       home: LoginScreen(),
       routes: {
@@ -43,7 +46,7 @@ class MyApp extends StatelessWidget {
         'sendMessage': (context) => const SendMessage(),
         'login': (context) => const LoginScreen(),
         'register': (context) => RegisterScreen(),
-        'mail': (context) => EmailScreen2(),
+        // 'mail': (context) => EmailScreen2(),
         'inbox': (context) => inboxPage(),
         'editProfile': (context) => EditProfileScreen(),
         'profile': (context) => ProfileScreen(),
